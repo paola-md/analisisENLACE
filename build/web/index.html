@@ -62,7 +62,7 @@
                             <nav class="site-navigation position-relative text-right" role="navigation">
 
                                 <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                                    <li><a href="#home-section" class="nav-link">Home</a></li>
+                                    <li><a href="#home-section" class="nav-link">Inicio</a></li>
                                     <li class="has-children">
                                         <a href="#about-section" class="nav-link">About Us</a>
                                         <ul class="dropdown">
@@ -84,12 +84,9 @@
                                     </li>
 
 
-                                    <li><a href="#blog-section" class="nav-link">Blog</a></li>
-                                    <li><a href="#contact-section" class="nav-link">Contact</a></li>
-                                    <li class="social"><a href="#contact-section" class="nav-link"><span class="icon-facebook"></span></a></li>
-                                    <li class="social"><a href="#contact-section" class="nav-link"><span class="icon-twitter"></span></a></li>
-                                    <li class="social"><a href="#contact-section" class="nav-link"><span class="icon-linkedin"></span></a></li>
-                                </ul>
+                                    <li><a href="#blog-section" class="nav-link">Do files</a></li>
+                                    <li><a href="#contact-section" class="nav-link">Contacto</a></li>
+                                      </ul>
                             </nav>
                         </div>
 
@@ -218,6 +215,7 @@
                             <small>
                                 Notas: Por cada año, existen uno a dos bases con resultados identificados por un folio y una base que mapea los folios con los CURP. Los últimos dos dígitos del CURP son los identificadores que en muchas ocasiones no aparecen o son reemplazados por dos asteriscos.El CCT es el identificador único de las escuelas.
                             </small>
+                            <a href="./dofiles/panel.do" download target="_blank">do file</a>
                         </div>
                     </div>
 
@@ -658,85 +656,55 @@
                 <div class="container">
                     <div class="row mb-5">
                         <div class="col-12 text-center" data-aos="fade">
-                            <h2 class="section-title mb-3">Our Services</h2>
+                            <h2 class="section-title mb-3">Do files</h2>
                         </div>
                     </div>
                     <div class="row align-items-stretch">
                         <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up">
                             <div class="unit-4">
                                 <div class="unit-4-icon">
-                                    <img src="images/flaticon-svg/svg/001-wallet.svg" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
+                                    <img src="images/flaticon-svg/svg/rocket.svg" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
                                 </div>
                                 <div>
-                                    <h3>Business Consulting</h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione animi tempora sint hic quod!</p>
-                                    <p><a href="#">Learn More</a></p>
+                                    <h3>Do file inicial</h3>
+                                    <p>El do file inicial llama al resto de los do files en orden.</p>
+                                    <p><a href="./dofiles/MainDoFile.do" download target="_blank">Descargar do file principal</a></p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="100">
                             <div class="unit-4">
                                 <div class="unit-4-icon">
-                                    <img src="images/flaticon-svg/svg/006-credit-card.svg" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
+                                    <img src="images/flaticon-svg/svg/mop.svg" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
                                 </div>
                                 <div>
-                                    <h3>Credit Card</h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores nemo beatae minus incidunt voluptates?</p>
-                                    <p><a href="#">Learn More</a></p>
+                                    <h3>Preparación de base maestra</h3>
+                                    <p>Los siguientes tres do files limpian las bases y estandarizan los resultados por grado y año para generar el panel maeestro utilizando para hacer el análisis.</p>
+                                    <p><a href="./dofiles/masterdb.do" download target="_blank">Descargar do file que limpia las bases originales</a></p>
+                                    <p><a href="./dofiles/Standardize.do" download target="_blank">Descargar do file que estandariza resultados</a></p>
+                                    <p><a href="./dofiles/panel.do" download target="_blank">Descargar do file que genera panel maestro</a></p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="200">
                             <div class="unit-4">
                                 <div class="unit-4-icon">
-                                    <img src="images/flaticon-svg/svg/002-rich.svg" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
+                                    <img src="images/flaticon-svg/svg/research.svg" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
                                 </div>
                                 <div>
-                                    <h3>Income Monitoring</h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores optio veritatis aperiam consequuntur qui.</p>
-                                    <p><a href="#">Learn More</a></p>
+                                    <h3>Analisis</h3>
+                                    <p>Los siguientes do files generan las gráficas de este reporte.</p>
+                                    <p><a href="./dofiles/DBQualityMatches.do" download target="_blank">Descargar do file de seguimiento calidad de base</a></p>
+                                    <p><a href="./dofiles/seguimiento.do" download target="_blank">Descargar do file de seguimiento de alumnos</a></p>
+                                    <p><a href="./dofiles/asistencia.do" download target="_blank">Descargar do file de asistencia de alumnos</a></p>
+                                    <p><a href="./dofiles/asistenciaPorEscuela.do" download target="_blank">Descargar do file de asistencia por escuela</a></p>
+                                    <p><a href="./dofiles/porcentajeCambiosResultados.do" download target="_blank">Descargar do file de persistencia de resultados</a></p>
+                                    <p><a href="./dofiles/regresion.do" download target="_blank">Descargar do file de regresiones</a></p>
+                                    <p><a href="./dofiles/escuelas cierran.do" download target="_blank">Descargar do file de escuelas que cierran</a></p>
+                                    <p><a href="./dofiles/abren cierran pri.do" download target="_blank">Descargar do file de escuelas que abren</a></p>
                                 </div>
                             </div>
                         </div>
-
-
-                        <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="">
-                            <div class="unit-4">
-                                <div class="unit-4-icon">
-                                    <img src="images/flaticon-svg/svg/003-notes.svg" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
-                                </div>
-                                <div>
-                                    <h3>Insurance Consulting</h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia labore suscipit distinctio inventore doloribus deserunt!</p>
-                                    <p><a href="#">Learn More</a></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="100">
-                            <div class="unit-4">
-                                <div class="unit-4-icon">
-                                    <img src="images/flaticon-svg/svg/004-cart.svg" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
-                                </div>
-                                <div>
-                                    <h3>Financial Investment</h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque odio voluptatibus repellat hic officia quibusdam!</p>
-                                    <p><a href="#">Learn More</a></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="200">
-                            <div class="unit-4">
-                                <div class="unit-4-icon">
-                                    <img src="images/flaticon-svg/svg/005-megaphone.svg" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
-                                </div>
-                                <div>
-                                    <h3>Financial Management</h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In, iusto eaque velit saepe nobis ipsa?</p>
-                                    <p><a href="#">Learn More</a></p>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </section>
@@ -983,48 +951,58 @@
 
 
             <section class="site-section" id="blog-section">
-                <div class="container">
+               <div class="container">
                     <div class="row mb-5">
                         <div class="col-12 text-center" data-aos="fade">
-                            <h2 class="section-title mb-3">Our Blog</h2>
+                            <h2 class="section-title mb-3">Do files</h2>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="">
-                            <div class="h-entry">
-                                <a href="single.html">
-                                    <img src="images/img_1.jpg" alt="Image" class="img-fluid">
-                                </a>
-                                <h2 class="font-size-regular"><a href="#">Banking is good for business? Why?</a></h2>
-                                <div class="meta mb-4">Ham Brook <span class="mx-2">&bullet;</span> Jan 18, 2019<span class="mx-2">&bullet;</span> <a href="#">News</a></div>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus eligendi nobis ea maiores sapiente veritatis reprehenderit suscipit quaerat rerum voluptatibus a eius.</p>
-                                <p><a href="#">Continue Reading...</a></p>
-                            </div> 
+                    <div class="row align-items-stretch">
+                        <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up">
+                            <div class="unit-4">
+                                <div class="unit-4-icon">
+                                    <img src="images/flaticon-svg/svg/rocket.svg" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
+                                </div>
+                                <div>
+                                    <h3>Do file inicial</h3>
+                                    <p>El do file inicial llama al resto de los do files en orden.</p>
+                                    <p><a href="./dofiles/MainDoFile.do" download target="_blank">Descargar do file principal</a></p>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="100">
-                            <div class="h-entry">
-                                <a href="single.html">
-                                    <img src="images/img_4.jpg" alt="Image" class="img-fluid">
-                                </a>
-                                <h2 class="font-size-regular"><a href="#">Banking is good for business? Why?</a></h2>
-                                <div class="meta mb-4">James Phelps <span class="mx-2">&bullet;</span> Jan 18, 2019<span class="mx-2">&bullet;</span> <a href="#">News</a></div>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus eligendi nobis ea maiores sapiente veritatis reprehenderit suscipit quaerat rerum voluptatibus a eius.</p>
-                                <p><a href="#">Continue Reading...</a></p>
+                            <div class="unit-4">
+                                <div class="unit-4-icon">
+                                    <img src="images/flaticon-svg/svg/mop.svg" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
+                                </div>
+                                <div>
+                                    <h3>Preparación de base maestra</h3>
+                                    <p>Los siguientes tres do files limpian las bases y estandarizan los resultados por grado y año para generar el panel maeestro utilizando para hacer el análisis.</p>
+                                    <p><a href="./dofiles/masterdb.do" download target="_blank">Descargar do file que limpia las bases originales</a></p>
+                                    <p><a href="./dofiles/Standardize.do" download target="_blank">Descargar do file que estandariza resultados</a></p>
+                                    <p><a href="./dofiles/panel.do" download target="_blank">Descargar do file que genera panel maestro</a></p>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="200">
-                            <div class="h-entry">
-                                <a href="single.html">
-                                    <img src="images/img_3.jpg" alt="Image" class="img-fluid">
-                                </a>
-                                <h2 class="font-size-regular"><a href="#">Banking is good for business? Why?</a></h2>
-                                <div class="meta mb-4">James Phelps <span class="mx-2">&bullet;</span> Jan 18, 2019<span class="mx-2">&bullet;</span> <a href="#">News</a></div>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus eligendi nobis ea maiores sapiente veritatis reprehenderit suscipit quaerat rerum voluptatibus a eius.</p>
-                                <p><a href="#">Continue Reading...</a></p>
-                            </div> 
+                            <div class="unit-4">
+                                <div class="unit-4-icon">
+                                    <img src="images/flaticon-svg/svg/research.svg" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
+                                </div>
+                                <div>
+                                    <h3>Analisis</h3>
+                                    <p>Los siguientes do files generan las gráficas de este reporte.</p>
+                                    <p><a href="./dofiles/DBQualityMatches.do" download target="_blank">Descargar do file de seguimiento calidad de base</a></p>
+                                    <p><a href="./dofiles/seguimiento.do" download target="_blank">Descargar do file de seguimiento de alumnos</a></p>
+                                    <p><a href="./dofiles/asistencia.do" download target="_blank">Descargar do file de asistencia de alumnos</a></p>
+                                    <p><a href="./dofiles/asistenciaPorEscuela.do" download target="_blank">Descargar do file de asistencia por escuela</a></p>
+                                    <p><a href="./dofiles/porcentajeCambiosResultados.do" download target="_blank">Descargar do file de persistencia de resultados</a></p>
+                                    <p><a href="./dofiles/regresion.do" download target="_blank">Descargar do file de regresiones</a></p>
+                                    <p><a href="./dofiles/escuelas cierran.do" download target="_blank">Descargar do file de escuelas que cierran</a></p>
+                                    <p><a href="./dofiles/abren cierran pri.do" download target="_blank">Descargar do file de escuelas que abren</a></p>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </section>
@@ -1096,7 +1074,7 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-md-12">
-                                        <input type="submit" value="Send Message" class="btn btn-primary btn-md text-white">
+                                        <input type="submit" value="Enviar mensaje" class="btn btn-primary btn-md text-white">
                                     </div>
                                 </div>
                                 <input type="hidden" name="_next" value="https://paola-md.github.io/analisisENLACE/web/"/>
