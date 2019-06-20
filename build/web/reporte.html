@@ -134,11 +134,22 @@
                                 </div>
 
                                 <div class="slide">
-                                    <h1 class="text-uppercase" data-aos="fade-up">Creación de panel ENLACE y Formato 911</h1>
+                                    <h1 class="text-uppercase" data-aos="fade-up">Creación de panel ENLACE </h1>
                                     <p class="mb-5 desc" data-aos="fade-up" data-aos-delay="100">Formar un panel de datos que siga el desempeño de los alumnos en la Prueba Enlace a 
                                         través de los años. Este ejercicio involucra usar CURP  para seguir a los alumnos en el tiempo.</p>
                                     <div data-aos="fade-up" data-aos-delay="100">
                                         <a href="#objetivo1-section" class="btn  btn-primary mr-2 mb-2">Ir a sección</a>
+                                    </div>
+                                </div>
+
+                                <div class="slide">
+                                    <h1 class="text-uppercase" data-aos="fade-up">Creación de panel del Formato 911</h1>
+                                    <p class="mb-5 desc" data-aos="fade-up" data-aos-delay="100">
+                                        Formar un panel de datos que siga las escuelas 
+                                        través de los años. Este ejercicio involucra usar CCT para seguir a las escuelas en el tiempo.
+                                    </p>
+                                    <div data-aos="fade-up" data-aos-delay="100">
+                                        <a href="#objetivo3-section" class="btn  btn-primary mr-2 mb-2">Ir a sección</a>
                                     </div>
                                 </div>
 
@@ -177,13 +188,15 @@
                         <div class="col-md-8 text-center">
                             <h2 class="section-title mb-3" data-aos="fade-up" data-aos-delay="">Objetivos</h2>
                             <p class="lead" data-aos="fade-up" data-aos-delay="100">
-                                Este reporte tiene dos objetivos. 
+                                Este reporte tiene los siguientes objetivos:
+                            </p>
 
+                            <p>
+                                1.	Formar un panel de datos que siga el desempeño de los alumnos en la Prueba Enlace a través de los años. Este ejercicio involucra usar CURP para seguir a los alumnos en el tiempo. El reto principal es saber cómo manejar adecuadamente los CURP cuando tienen errores o están incompletos. En este caso, si se quisiera aumentar la proporción de matches habría que estar dispuesto a incurrir en el riesgo de errores de matching.  Para dejar que el usuario tome esta decisión creamos una base de datos que solo usa matches exactos y otra en donde adicionalmente incluimos matches imperfectos (fuzzy matches): es relativamente poco lo que ganamos con fuzzy matches. <p></p>
+                            </p>
                             <p></p>
-                            1.	Formar un panel de datos que siga el desempeño de los alumnos en la Prueba Enlace a través de los años. Este ejercicio involucra usar CURPs  para seguir a los alumnos en el tiempo. El reto principal aquí es como hacer cuando los CURPs tienen errores o están incompletos. En este caso si se quisiera aumentar la proporción de “matches” habría que estar dispuesto a incurrir en el riesgo de errores de matching.  Para dejar que el usuario tome esta decisión creamos una base de datos que solo usa matches exactos y otra en donde adicionalmente incluimos matches imperfectos (“fuzzy matches”). Es relativamente poco lo que ganamos con fuzzy matches.
-                            <p></p>
-                            2.	Evaluar la calidad del panel resultante. Esto lo hacemos de varias formas. Primero, evaluamos simplemente si existen las observaciones en el tiempo. Es decir, si es posible seguir estudiantes en el tiempo y si existen grandes hoyos hay en los datos. Segundo, mostramos las distribuciones de calificaciones, que deberían ser suaves. Tercero, exploramos si en una misma escuela parece haber cambios bruscos en el tamaño de su matrícula en el tiempo, es decir en el número de estudiantes que tiene. Esto debería ser muy atípico. Cuarto, miramos si existen cambios atípicos en las calificaciones promedio en una misma escuela (a nivel escuela) de un año a otro, y en la persistencia a nivel alumno de las calificaciones. Quinto, exploramos los cierres y apertura de escuelas, y sobre la distancia que hay entre escuelas a las que dejan de ir los alumnos porque cierran, y las escuelas hacia donde se cambian. 
-
+                            <p>
+                                2.	Evaluar la calidad del panel resultante mediante la siguiente forma: Primero, evaluamos si existen las observaciones en el tiempo, es decir, si es posible seguir a los estudiantes a través del tiempo y si existen lagunas en los datos. Segundo, mostramos las distribuciones de calificaciones, que deberían ser suaves. Tercero, exploramos si en una misma escuela parece haber cambios bruscos en el tamaño de su matrícula en el tiempo, es decir, en el número de estudiantes que tiene (esto debería ser muy atípico). Cuarto, observamos si existen cambios atípicos en las calificaciones promedio a nivel escuela de un año a otro, y en la persistencia a nivel alumno de las calificaciones. Quinto, exploramos los cierres y aperturas de escuelas, y también sobre la distancia que hay entre escuelas a las que dejan de ir los alumnos porque cierran, y las escuelas hacia donde se cambian. 
                             </p>
                         </div>
                     </div>
@@ -195,8 +208,7 @@
                             <p class="lead" data-aos="fade-up" data-aos-delay="100">
                                 Generación de las bases de datos panel
                             <p></p>
-                            La base de enlace del 2011 faltaba y 2010 tenía solamente cerca de la mitad de las calificaciones. Conseguimos estos faltantes por nuestra parte y pudimos completar estos datos faltantes. Una primera observación es que el número de folios es mayor al número de CURP, esto se da porque cerca de 5%-10% de los CURP no existen. En año 2006 esto es peor, faltan cerca de 23% de los CURP. 
-
+                            Nótese que la base de Enlace del 2011 está incompleta y la de 2010 tenía solamente cerca de la mitad de las calificaciones. Conseguimos estos faltantes por nuestra parte y así pudimos completar los datos. Una primera observación es que el número de folios es mayor al número de CURP, esto se da porque cerca de 5%-10% de los CURP no existen. En el año 2006 la situación es más crítica pues faltan cerca del 23% de los CURP. 
                             <style type="text/css">
                                 table.tableizer-table {
                                     font-size: 12px;
@@ -257,8 +269,8 @@
 
                             <h3 class="text-black mb-4">Generaciones y años calendario</h3>
 
-                            La generación 6 puede seguirse en desde cuarto de primaria hasta 2do de secundaria, mientras que la generación 12 solo puede seguirse de tercero a cuarto de primaria.  Para las generaciones que llamamos 1, 2, 3 y 13 solo observamos un año.
-                            Nótese que para 2011 no contamos con información de secundarias. Nótese además que en 2006, 2007 y 2008, no contamos con información de secundaria. 
+                            Por ejemplo, la generación 6 puede seguirse desde cuarto de primaria hasta segundo de secundaria, mientras que la generación 12 solo puede seguirse de tercero a cuarto de primaria.  Para las generaciones que llamamos 1, 2, 3 y 13 solo observamos un año.
+                            Nótese que para 2011 no contamos con información de secundarias. Nótese, además, que en 2006, 2007 y 2008 no contamos con información de secundaria. 
                             Aunque se pueden seguir generaciones, no necesariamente pueden seguirse todos los estudiantes. Hay varias razones para ello: 
                             <p></p>
                             1.	El estudiante deja de estudiar
@@ -267,8 +279,7 @@
                             <p></p>
                             3.	Por mala calidad del CURP no se puede dar seguimiento a un estudiante. 
                             <p></p>
-                            Es difícil distinguir estos casos, aunque algo puede aprenderse sobre el caso 1 versus el 2 si vemos que un año el estudiante deja de ir pero el siguiente “vuelve”.
-
+                            Es difícil distinguir estos casos, aunque algo puede aprenderse sobre el caso 1 versus el caso 2 si vemos que en un año el estudiante deja de ir, pero al siguiente “vuelve”.
                         </div>
                     </div>    
 
@@ -282,7 +293,7 @@
                             <h3 class="text-black mb-4">
                                 Paneles de Datos Armados por nosotros
                             </h3>
-                            Para hacer el Panel_fuzzy se hizo lo siguiente: convertimos todos los CURPS a mayúsculas, eliminamos todos los caracteres que no fueran ni números ni letras, usando nombres y las reglas de como se forman los curps, identificamos curps que no cumplían con las reglas de nombre –menos de 1% de los CURPS-- y los arreglamos usando los nombres. Finalmente, nos quedamos con los primeros 16 caracteres del CURP. Con este nuevo CURP buscamos matches adicionales, es decir primero se hace un match exacto y después este match. Al usar solo 16 dígitos podríamos estar matcheando CURPs de manera errónea, aun así son pocos los que se recuperan. Pasamos de 2.48 años en promedio a por alumno a 2.62. 
+                            Para hacer el Panel_fuzzy se hizo lo siguiente: convertimos todos los CURPS a mayúsculas, eliminamos todos los caracteres que no fueran ni números ni letras, usando nombres y las reglas de como se forman los curps, identificamos curps que no cumplían con las reglas de nombre –menos de 1% de los CURPS-- y los arreglamos usando los nombres. Finalmente, nos quedamos con los primeros 16 caracteres del CURP. Con este nuevo CURP buscamos matches adicionales, es decir primero se hace un match exacto y después este match. Al usar solo 16 dígitos podríamos estar matcheando CURPs de manera errónea, aun así son pocos los que se recuperan. Pasamos de 2.42 años en promedio a por alumno a 2.80. 
 
                             <style type="text/css">
                                 table.tableizer-table {
@@ -305,9 +316,9 @@
                             <p></p>
 
                             <table class="tableizer-table">
-                                <thead><tr class="tableizer-firstrow"><th>Nombre</th><th>Numero de CURP únicos</th><th>Numero de CCT únicos</th><th>Numero de observaciones</th><th>Numero de variables</th><th># personas con los 4 años de primaria completos</th><th># personas con 3 años de secundaria completos</th><th>Años alumno promedio</th></tr></thead><tbody>
-                                    <tr><td>Panel_exacto</td><td>28,406,734</td><td>131,109</td><td>70,584,838</td><td>11</td><td>15,069,740 (29%)</td><td>11,940,963 (23%)</td><td>2.48</td></tr>
-                                    <tr><td>Panel_fuzzy</td><td>28,527,479</td><td>131,683</td><td>74,998,313</td><td>11</td><td>17,911,584 (32%)</td><td>12,209,685 (22%)</td><td>2.62</td></tr>
+                                <thead><tr class="tableizer-firstrow"><th>Nombre</th><th>Número de CURP único</th><th>Número de CCT único</th><th>Número de observaciones</th><th>Número de variables</th><th>Número de personas con los 4 años de primaria completos</th><th>Número de personas con 3 años de secundaria completos</th><th>Años alumno promedio</th></tr></thead><tbody>
+                                    <tr><td>panel_fuzzy</td><td> 30,435,074.00 </td><td> 146,068.00 </td><td> 85,304,472.00 </td><td> 11.00 </td><td> 5,476,705.00 </td><td> 32,315.00 </td><td> 2.80 </td></tr>
+                                    <tr><td>panel_exacto</td><td> 30,805,408.00 </td><td> 131,257.00 </td><td> 74,510,112.00 </td><td> 11.00 </td><td> 4,602,253.00 </td><td> 26,489.00 </td><td> 2.42 </td></tr>
                                 </tbody></table>
                             <small>
                                 Nota: La principal diferencia entre el panel exacto y el panel fuzzy es que el panel fuzzy sólo considera los primero 16 caracteres del CURP para hacer el match.
@@ -326,7 +337,7 @@
                 <div class="row mb-5 justify-content-center" id="cantidad-section">
                     <div class="col-md-7 text-center">
                         <h3 class="text-black mb-4">
-                            Años que deberíamos tener de cada generación si no hubiera faltas ni deserción, y años promedio que efectivamente encontramos 
+                            Años que deberíamos tener de cada generación si no hubiera faltas ni deserción y años promedio que efectivamente encontramos
                         </h3>
 
                         Las tablas muestran las generaciones en renglones y los números de que deberíamos tener para cada una. Sacando un promedio simple  obtenemos que deberíamos tener cerca de 3.08 años de seguimiento por alumno por alumno, y en realidad tenemos 2.62 en el panel fuzzy, es decir tenemos un 85% de los años. Esto podría explicarse con una tasa de inasistencia de 15%.  Los porcentajes más bajos corresponden a la generación 5, 6 y 7 que cursaban secundaria en el 2010. 
@@ -507,45 +518,44 @@
                             Número de alumnos que participaron en 2006-2012 por Estado
                         </h3>
 
-
-                        <table align="center"  class="tableizer-table">
-                            <thead><tr class="tableizer-firstrow"><th>Entidad</th><th>2012</th><th>2011</th><th>2010</th><th>2009</th><th>2008</th><th>2007</th><th>2006</th></tr></thead><tbody>
-                                <tr><td>Aguascalientes</td><td>               171,250 </td><td>               104,279 </td><td>               166,736 </td><td>               160,652 </td><td>               115,050 </td><td>           116,655 </td><td>             49,762 </td></tr>
-                                <tr><td>Baja California</td><td>               408,611 </td><td>               250,970 </td><td>               390,050 </td><td>               377,536 </td><td>               276,546 </td><td>           268,122 </td><td>             10,746 </td></tr>
-                                <tr><td>Baja California Sur</td><td>                 80,506 </td><td>                 49,460 </td><td>                 77,203 </td><td>                 73,885 </td><td>                 47,204 </td><td>             50,650 </td><td>             24,956 </td></tr>
-                                <tr><td>Campeche</td><td>               104,958 </td><td>                 64,895 </td><td>               101,578 </td><td>               100,237 </td><td>                 67,569 </td><td>             72,130 </td><td>             67,136 </td></tr>
-                                <tr><td>Chiapas</td><td>               362,891 </td><td>               229,657 </td><td>               348,723 </td><td>               636,888 </td><td>               481,462 </td><td>           246,558 </td><td>           111,234 </td></tr>
-                                <tr><td>Chihuahua</td><td>                 79,075 </td><td>                 45,267 </td><td>                 74,638 </td><td>               416,019 </td><td>               303,884 </td><td>             54,120 </td><td>             51,907 </td></tr>
-                                <tr><td>Coahuila</td><td>               557,486 </td><td>               467,740 </td><td>               702,559 </td><td>               335,765 </td><td>               247,374 </td><td>           128,218 </td><td>                2,981 </td></tr>
-                                <tr><td>Colima</td><td>               427,609 </td><td>               262,324 </td><td>               421,926 </td><td>                 74,337 </td><td>                 52,119 </td><td>           296,910 </td><td>             51,352 </td></tr>
-                                <tr><td>Distrito Federal</td><td>           1,018,002 </td><td>               612,950 </td><td>           1,042,533 </td><td>           1,041,505 </td><td>               724,867 </td><td>           740,619 </td><td>             51,389 </td></tr>
-                                <tr><td>Durango</td><td>               230,393 </td><td>               143,804 </td><td>               218,909 </td><td>               221,226 </td><td>               145,183 </td><td>           163,605 </td><td>             17,911 </td></tr>
-                                <tr><td>Guanajuato</td><td>               799,944 </td><td>               502,639 </td><td>               762,075 </td><td>               745,725 </td><td>               550,547 </td><td>           546,010 </td><td>           106,853 </td></tr>
-                                <tr><td>Guerrero</td><td>                 80,825 </td><td>               289,929 </td><td>               441,432 </td><td>               335,440 </td><td>               364,669 </td><td>           355,091 </td><td>             46,684 </td></tr>
-                                <tr><td>Hidalgo</td><td>               371,399 </td><td>               219,477 </td><td>               369,025 </td><td>               357,679 </td><td>               262,456 </td><td>           271,062 </td><td>             68,839 </td></tr>
-                                <tr><td>Jalisco</td><td>               978,287 </td><td>               619,240 </td><td>               936,879 </td><td>               914,105 </td><td>               638,600 </td><td>           656,530 </td><td>           126,575 </td></tr>
-                                <tr><td>Michoacan</td><td>           1,994,410 </td><td>           1,218,751 </td><td>           1,966,434 </td><td>               201,889 </td><td>                    3,132 </td><td>           869,303 </td><td>                   575 </td></tr>
-                                <tr><td>Morelos</td><td>               153,885 </td><td>               171,972 </td><td>               225,156 </td><td>               191,619 </td><td>               156,906 </td><td>           196,632 </td><td>             60,372 </td></tr>
-                                <tr><td>México</td><td>               226,118 </td><td>               140,241 </td><td>               225,677 </td><td>           1,891,108 </td><td>           1,407,485 </td><td>           163,772 </td><td>             22,802 </td></tr>
-                                <tr><td>Nayarit</td><td>               139,016 </td><td>                 84,887 </td><td>               138,690 </td><td>               132,379 </td><td>                 93,313 </td><td>             94,216 </td><td>             29,304 </td></tr>
-                                <tr><td>NUEVO Leon</td><td>               607,695 </td><td>               370,991 </td><td>               569,823 </td><td>               540,933 </td><td>               389,016 </td><td>           380,454 </td><td>             70,828 </td></tr>
-                                <tr><td>Oaxaca</td><td>                    7,969 </td><td>                    4,214 </td><td>                    6,033 </td><td>                 64,500 </td><td>               344,282 </td><td>           324,414 </td><td>&nbsp;</td></tr>
-                                <tr><td>Puebla</td><td>               838,892 </td><td>               521,121 </td><td>               788,231 </td><td>               670,715 </td><td>               560,371 </td><td>           541,101 </td><td>             52,244 </td></tr>
-                                <tr><td>Queretaro</td><td>               258,567 </td><td>               162,004 </td><td>               255,071 </td><td>               244,902 </td><td>               172,159 </td><td>           175,546 </td><td>                4,934 </td></tr>
-                                <tr><td>Quintana Roo</td><td>               170,678 </td><td>               101,834 </td><td>               161,863 </td><td>               154,284 </td><td>               112,951 </td><td>           115,704 </td><td>             15,294 </td></tr>
-                                <tr><td>SAN LUIS Potosi</td><td>               378,926 </td><td>               236,634 </td><td>               363,110 </td><td>               356,752 </td><td>               250,911 </td><td>           266,155 </td><td>             72,397 </td></tr>
-                                <tr><td>Sinaloa</td><td>               361,701 </td><td>               217,911 </td><td>               349,522 </td><td>               349,852 </td><td>               257,320 </td><td>           266,645 </td><td>             36,731 </td></tr>
-                                <tr><td>Sonora</td><td>               350,792 </td><td>               204,056 </td><td>               340,298 </td><td>               315,993 </td><td>               233,756 </td><td>           230,476 </td><td>             85,367 </td></tr>
-                                <tr><td>Tabasco</td><td>               298,534 </td><td>               183,710 </td><td>               301,185 </td><td>               295,279 </td><td>               207,596 </td><td>           215,205 </td><td>             68,084 </td></tr>
-                                <tr><td>Tamaulipas</td><td>               412,793 </td><td>               259,841 </td><td>               409,099 </td><td>               400,607 </td><td>               288,872 </td><td>           278,878 </td><td>             78,561 </td></tr>
-                                <tr><td>Tlaxcala</td><td>               161,295 </td><td>                 96,266 </td><td>               158,846 </td><td>               162,186 </td><td>               114,024 </td><td>           119,665 </td><td>             41,827 </td></tr>
-                                <tr><td>Veracruz</td><td>           1,022,253 </td><td>               632,785 </td><td>           1,010,051 </td><td>               994,410 </td><td>               730,392 </td><td>           728,421 </td><td>             56,723 </td></tr>
-                                <tr><td>Yucatan</td><td>               250,633 </td><td>               157,330 </td><td>               242,380 </td><td>               234,255 </td><td>               170,017 </td><td>           172,113 </td><td>             98,546 </td></tr>
-                                <tr><td>Zacatecas</td><td>               201,774 </td><td>               131,328 </td><td>               206,624 </td><td>               195,020 </td><td>               140,852 </td><td>           143,458 </td><td>             48,579 </td></tr>
+                        <<table class="tableizer-table">
+                            <thead><tr class="tableizer-firstrow"><th>Estado </th><th>2006</th><th>2007</th><th>2008</th><th>2009</th><th>2010</th><th>2011</th><th>2012</th></tr></thead><tbody>
+                                <tr><td>Aguascalientes</td><td> 115,040 </td><td> 115,709 </td><td> 114,846 </td><td> 158,637 </td><td> 162,890 </td><td> 101,470 </td><td> 167,877 </td></tr>
+                                <tr><td>Baja California</td><td> 57,134 </td><td> 267,175 </td><td> 275,812 </td><td> 376,017 </td><td> 388,777 </td><td> 249,549 </td><td> 407,050 </td></tr>
+                                <tr><td>Baja California Sur</td><td> 21,325 </td><td> 49,532 </td><td> 45,670 </td><td> 72,600 </td><td> 75,645 </td><td> 48,508 </td><td> 79,652 </td></tr>
+                                <tr><td>Campeche</td><td> 59,366 </td><td> 71,340 </td><td> 66,713 </td><td> 99,385 </td><td> 101,104 </td><td> 64,294 </td><td> 103,847 </td></tr>
+                                <tr><td>Chiapas</td><td> 240,296 </td><td> 244,823 </td><td> 246,270 </td><td> 333,618 </td><td> 343,722 </td><td> 226,392 </td><td> 357,999 </td></tr>
+                                <tr><td>Chihuahua</td><td> 51,884 </td><td> 53,920 </td><td> 52,022 </td><td> 74,187 </td><td> 74,466 </td><td> 45,131 </td><td> 78,903 </td></tr>
+                                <tr><td>Coahuila</td><td> 2,271 </td><td> 164,950 </td><td> 459,398 </td><td> 621,378 </td><td> 647,424 </td><td> 454,240 </td><td> 537,848 </td></tr>
+                                <tr><td>Colima</td><td> 247,740 </td><td> 295,806 </td><td> 302,787 </td><td> 414,285 </td><td> 420,238 </td><td> 260,873 </td><td> 425,379 </td></tr>
+                                <tr><td>Distrito Federal</td><td> 703,107 </td><td> 735,140 </td><td> 718,834 </td><td> 1,024,256 </td><td> 1,030,830 </td><td> 605,259 </td><td> 1,011,893 </td></tr>
+                                <tr><td>Durango</td><td> 135,825 </td><td> 139,422 </td><td> 124,234 </td><td> 205,350 </td><td> 206,239 </td><td> 130,476 </td><td> 215,891 </td></tr>
+                                <tr><td>Guanajuato</td><td> 521,521 </td><td> 545,412 </td><td> 550,302 </td><td> 745,563 </td><td> 761,970 </td><td> 502,419 </td><td> 796,394 </td></tr>
+                                <tr><td>Guerrero</td><td> 292,455 </td><td> 334,006 </td><td> 356,895 </td><td> 322,369 </td><td> 432,293 </td><td> 284,403 </td><td> 72,426 </td></tr>
+                                <tr><td>Hidalgo</td><td> 229,629 </td><td> 247,368 </td><td> 258,356 </td><td> 352,818 </td><td> 364,349 </td><td> 215,976 </td><td> 365,657 </td></tr>
+                                <tr><td>Jalisco</td><td> 650,180 </td><td> 641,479 </td><td> 637,974 </td><td> 896,614 </td><td> 882,833 </td><td> 596,841 </td><td> 946,533 </td></tr>
+                                <tr><td>Michoacán</td><td> 469,197 </td><td> 1,407,570 </td><td> 1,406,538 </td><td> 1,887,852 </td><td> 1,965,068 </td><td> 1,217,535 </td><td> 1,989,474 </td></tr>
+                                <tr><td>Morelos</td><td> 76,960 </td><td> 191,902 </td><td> 138,323 </td><td> 195,268 </td><td> 197,869 </td><td> 165,780 </td><td> 129,551 </td></tr>
+                                <tr><td>México</td><td> 135,299 </td><td> 142,718 </td><td> 93,268 </td><td> 182,436 </td><td> 222,036 </td><td> 137,151 </td><td> 218,908 </td></tr>
+                                <tr><td>Nayarit</td><td> 95,112 </td><td> 94,150 </td><td> 387,679 </td><td> 132,343 </td><td> 138,631 </td><td> 84,382 </td><td> 137,730 </td></tr>
+                                <tr><td>Nuevo León</td><td> 332,590 </td><td> 375,780 </td><td> 339,463 </td><td> 539,104 </td><td> 569,007 </td><td> 370,452 </td><td> 606,600 </td></tr>
+                                <tr><td>Oaxaca</td><td> 385,807 </td><td> 175,347 </td><td> 480,190 </td><td> 49,655 </td><td> 784,421 </td><td> 518,159 </td><td> 835,330 </td></tr>
+                                <tr><td>Puebla</td><td> 171,875 </td><td> 448,799 </td><td> 171,729 </td><td> 666,620 </td><td> 251,822 </td><td> 159,896 </td><td> 252,695 </td></tr>
+                                <tr><td>Querétaro</td><td> 109,932 </td><td> 172,867 </td><td> 111,533 </td><td> 241,265 </td><td> 161,227 </td><td> 101,429 </td><td> 169,747 </td></tr>
+                                <tr><td>Quintana Roo</td><td> 267,461 </td><td> 109,440 </td><td> 246,867 </td><td> 153,680 </td><td> 356,899 </td><td> 232,519 </td><td> 373,942 </td></tr>
+                                <tr><td>San Luis Potosí</td><td> 97,597 </td><td> 262,439 </td><td> 253,589 </td><td> 351,074 </td><td> 339,070 </td><td> 215,222 </td><td> 356,715 </td></tr>
+                                <tr><td>Sinaloa</td><td> 216,293 </td><td> 261,903 </td><td> 233,382 </td><td> 346,587 </td><td> 339,387 </td><td> 203,421 </td><td> 350,073 </td></tr>
+                                <tr><td>Sonora</td><td> 199,099 </td><td> 230,289 </td><td> 206,760 </td><td> 315,359 </td><td> 299,538 </td><td> 182,656 </td><td> 296,709 </td></tr>
+                                <tr><td>Tabasco</td><td> 273,965 </td><td> 214,829 </td><td> 275,793 </td><td> 294,011 </td><td> 398,343 </td><td> 253,943 </td><td> 395,627 </td></tr>
+                                <tr><td>Tamaulipas</td><td> 87,222 </td><td> 276,245 </td><td> 88,827 </td><td> 377,753 </td><td> 155,433 </td><td> 87,075 </td><td> 158,542 </td></tr>
+                                <tr><td>Tlaxcala</td><td> 609,605 </td><td> 57,100 </td><td> 698,028 </td><td> 157,032 </td><td> 999,149 </td><td> 621,492 </td><td> 1,012,208 </td></tr>
+                                <tr><td>Veracruz</td><td> 156,760 </td><td> 717,164 </td><td> 169,530 </td><td> 984,882 </td><td> 241,554 </td><td> 156,780 </td><td> 249,386 </td></tr>
+                                <tr><td>Yucatán</td><td> 82,941 </td><td> 147,959 </td><td> 137,970 </td><td> 233,561 </td><td> 204,387 </td><td> 129,305 </td><td> 199,259 </td></tr>
+                                <tr><td>Zacatecas</td><td> -   </td><td> 133,655 </td><td> -   </td><td> 193,749 </td><td> -   </td><td> -   </td><td> -   </td></tr>
                             </tbody></table>
 
                         <small>
-                            Nota: El número de alumnos que participaron por año y por entidad se contaron usando el folio, el número de alumnos contados por CURP es mucho menor por los CURP faltantes.   
+                            Nota: El número de alumnos que participaron por año y por entidad se contaron usando el CURP, el número de alumnos contados por folio es mayor por los CURP faltantes.   
                         </small>
                     </div>
                 </div>
@@ -571,42 +581,41 @@
                         </h3>
 
 
-                        <table align="center" class="tableizer-table">
-                            <thead><tr class="tableizer-firstrow"><th>Entidad</th><th>2012</th><th>2011</th><th>2010</th><th>2009</th><th>2008</th><th>2007</th><th>2006</th></tr></thead><tbody>
-                                <tr><td>Aguascalientes</td><td>             1,030 </td><td>               745 </td><td>             1,020 </td><td>             1,022 </td><td>                 977 </td><td>                 993 </td><td>               566 </td></tr>
-                                <tr><td>Baja California</td><td>             2,178 </td><td>           1,676 </td><td>             2,084 </td><td>             2,029 </td><td>             1,974 </td><td>             1,919 </td><td>               454 </td></tr>
-                                <tr><td>Baja California Sur</td><td>                 571 </td><td>               419 </td><td>                 551 </td><td>                 530 </td><td>                 490 </td><td>                 502 </td><td>               457 </td></tr>
-                                <tr><td>Campeche</td><td>             1,081 </td><td>               785 </td><td>             1,022 </td><td>             1,054 </td><td>             1,024 </td><td>             1,026 </td><td>           1,019 </td></tr>
-                                <tr><td>Chiapas</td><td>             2,355 </td><td>           1,861 </td><td>             2,217 </td><td>           10,084 </td><td>             9,577 </td><td>             2,190 </td><td>           1,109 </td></tr>
-                                <tr><td>Chihuahua</td><td>                 643 </td><td>               465 </td><td>                 629 </td><td>             3,445 </td><td>             3,310 </td><td>                 607 </td><td>               567 </td></tr>
-                                <tr><td>Coahuila</td><td>             7,964 </td><td>           8,265 </td><td>             9,974 </td><td>             2,294 </td><td>             2,210 </td><td>             4,370 </td><td>           2,864 </td></tr>
-                                <tr><td>Colima</td><td>             3,556 </td><td>           2,751 </td><td>             3,469 </td><td>                 621 </td><td>                 602 </td><td>             3,254 </td><td>               807 </td></tr>
-                                <tr><td>Distrito Federal</td><td>             4,554 </td><td>           3,268 </td><td>             4,611 </td><td>             4,620 </td><td>             4,619 </td><td>             4,622 </td><td>               269 </td></tr>
-                                <tr><td>Durango</td><td>             3,414 </td><td>           2,520 </td><td>             3,384 </td><td>             3,373 </td><td>             3,160 </td><td>             3,132 </td><td>               566 </td></tr>
-                                <tr><td>Guanajuato</td><td>             6,287 </td><td>           4,690 </td><td>             6,194 </td><td>             6,134 </td><td>             6,056 </td><td>             6,079 </td><td>           2,143 </td></tr>
-                                <tr><td>Guerrero</td><td>             1,893 </td><td>           4,282 </td><td>             5,599 </td><td>             4,485 </td><td>             5,928 </td><td>             5,801 </td><td>           1,927 </td></tr>
-                                <tr><td>Hidalgo</td><td>             4,369 </td><td>           3,205 </td><td>             4,352 </td><td>             4,320 </td><td>             4,170 </td><td>             4,237 </td><td>           1,921 </td></tr>
-                                <tr><td>Jalisco</td><td>             7,553 </td><td>           5,873 </td><td>             7,420 </td><td>             7,372 </td><td>             7,126 </td><td>             7,144 </td><td>           3,040 </td></tr>
-                                <tr><td>Michoacan</td><td>           11,274 </td><td>           7,708 </td><td>           11,124 </td><td>             3,627 </td><td>                 745 </td><td>             6,678 </td><td>           1,380 </td></tr>
-                                <tr><td>Morelos</td><td>             1,772 </td><td>           3,053 </td><td>             3,584 </td><td>             1,358 </td><td>             1,388 </td><td>             3,104 </td><td>           1,696 </td></tr>
-                                <tr><td>México</td><td>             1,513 </td><td>           1,082 </td><td>             1,470 </td><td>           10,975 </td><td>           10,862 </td><td>             1,393 </td><td>               194 </td></tr>
-                                <tr><td>Nayarit</td><td>             1,708 </td><td>           1,185 </td><td>             1,681 </td><td>             1,651 </td><td>             1,617 </td><td>             1,597 </td><td>           1,290 </td></tr>
-                                <tr><td>NUEVO Leon</td><td>             3,686 </td><td>           2,765 </td><td>             3,541 </td><td>             3,452 </td><td>             3,345 </td><td>             3,273 </td><td>               797 </td></tr>
-                                <tr><td>Oaxaca</td><td>             1,192 </td><td>               846 </td><td>             1,089 </td><td>             1,841 </td><td>             6,697 </td><td>             6,060 </td><td>&nbsp;</td></tr>
-                                <tr><td>Puebla</td><td>             6,663 </td><td>           4,564 </td><td>             6,525 </td><td>             5,536 </td><td>             6,390 </td><td>             6,342 </td><td>           1,371 </td></tr>
-                                <tr><td>Queretaro</td><td>             1,961 </td><td>           1,461 </td><td>             1,904 </td><td>             1,881 </td><td>             1,605 </td><td>             1,799 </td><td>               106 </td></tr>
-                                <tr><td>Quintana Roo</td><td>             1,172 </td><td>               822 </td><td>             1,123 </td><td>             1,061 </td><td>             1,020 </td><td>             1,006 </td><td>               283 </td></tr>
-                                <tr><td>SAN LUIS Potosi</td><td>             4,963 </td><td>           3,377 </td><td>             4,939 </td><td>             4,933 </td><td>             4,839 </td><td>             4,790 </td><td>           1,878 </td></tr>
-                                <tr><td>Sinaloa</td><td>             3,545 </td><td>           2,742 </td><td>             3,465 </td><td>             3,447 </td><td>             3,356 </td><td>             3,328 </td><td>           1,059 </td></tr>
-                                <tr><td>Sonora</td><td>             2,441 </td><td>           1,678 </td><td>             2,414 </td><td>             2,401 </td><td>             2,332 </td><td>             2,250 </td><td>               941 </td></tr>
-                                <tr><td>Tabasco</td><td>             2,726 </td><td>           2,025 </td><td>             2,711 </td><td>             2,664 </td><td>             2,625 </td><td>             2,732 </td><td>               977 </td></tr>
-                                <tr><td>Tamaulipas</td><td>             3,162 </td><td>           2,492 </td><td>             3,090 </td><td>             3,093 </td><td>             3,035 </td><td>             3,000 </td><td>           1,072 </td></tr>
-                                <tr><td>Tlaxcala</td><td>             1,086 </td><td>               785 </td><td>             1,069 </td><td>             1,059 </td><td>                 988 </td><td>             1,033 </td><td>               452 </td></tr>
-                                <tr><td>Veracruz</td><td>           12,999 </td><td>           9,773 </td><td>           12,653 </td><td>           12,497 </td><td>           12,087 </td><td>           12,056 </td><td>           1,351 </td></tr>
-                                <tr><td>Yucatan</td><td>             1,951 </td><td>           1,369 </td><td>             1,880 </td><td>             1,826 </td><td>             1,787 </td><td>             1,803 </td><td>           1,785 </td></tr>
-                                <tr><td>Zacatecas</td><td>             3,084 </td><td>           2,005 </td><td>             3,117 </td><td>             3,096 </td><td>             3,042 </td><td>             3,076 </td><td>           2,008 </td></tr>
+                        <table class="tableizer-table">
+                            <thead><tr class="tableizer-firstrow"><th>Estado </th><th>2006</th><th>2007</th><th>2008</th><th>2009</th><th>2010</th><th>2011</th><th>2012</th></tr></thead><tbody>
+                                <tr><td>Aguascalientes</td><td> 671 </td><td> 713 </td><td> 683 </td><td> 690 </td><td> 685 </td><td> 693 </td><td> 685 </td></tr>
+                                <tr><td>Baja California</td><td> 714 </td><td> 1,481 </td><td> 1,530 </td><td> 1,563 </td><td> 1,602 </td><td> 1,653 </td><td> 1,652 </td></tr>
+                                <tr><td>Baja California Sur</td><td> 215 </td><td> 372 </td><td> 335 </td><td> 347 </td><td> 360 </td><td> 364 </td><td> 376 </td></tr>
+                                <tr><td>Campeche</td><td> 662 </td><td> 675 </td><td> 670 </td><td> 674 </td><td> 677 </td><td> 681 </td><td> 681 </td></tr>
+                                <tr><td>Chiapas</td><td> 1,696 </td><td> 1,717 </td><td> 1,717 </td><td> 1,744 </td><td> 1,758 </td><td> 1,779 </td><td> 1,783 </td></tr>
+                                <tr><td>Chihuahua</td><td> 416 </td><td> 440 </td><td> 426 </td><td> 427 </td><td> 434 </td><td> 438 </td><td> 439 </td></tr>
+                                <tr><td>Coahuila</td><td> 469 </td><td> 3,460 </td><td> 5,890 </td><td> 6,217 </td><td> 5,770 </td><td> 6,253 </td><td> 3,999 </td></tr>
+                                <tr><td>Colima</td><td> 2,225 </td><td> 2,508 </td><td> 2,417 </td><td> 2,469 </td><td> 2,472 </td><td> 2,472 </td><td> 2,461 </td></tr>
+                                <tr><td>Distrito Federal</td><td> 3,218 </td><td> 3,344 </td><td> 3,337 </td><td> 3,314 </td><td> 3,310 </td><td> 3,266 </td><td> 3,242 </td></tr>
+                                <tr><td>Durango</td><td> 2,010 </td><td> 1,984 </td><td> 2,035 </td><td> 2,069 </td><td> 2,067 </td><td> 2,064 </td><td> 2,078 </td></tr>
+                                <tr><td>Guanajuato</td><td> 4,585 </td><td> 4,649 </td><td> 4,623 </td><td> 4,631 </td><td> 4,657 </td><td> 4,689 </td><td> 4,313 </td></tr>
+                                <tr><td>Guerrero</td><td> 4,087 </td><td> 3,874 </td><td> 3,881 </td><td> 2,436 </td><td> 3,219 </td><td> 3,484 </td><td> 606 </td></tr>
+                                <tr><td>Hidalgo</td><td> 3,073 </td><td> 3,118 </td><td> 2,706 </td><td> 2,723 </td><td> 2,722 </td><td> 2,710 </td><td> 2,716 </td></tr>
+                                <tr><td>Jalisco</td><td> 5,364 </td><td> 5,704 </td><td> 5,714 </td><td> 5,782 </td><td> 5,801 </td><td> 5,817 </td><td> 5,447 </td></tr>
+                                <tr><td>Michoacán</td><td> 3,337 </td><td> 7,248 </td><td> 7,585 </td><td> 7,603 </td><td> 7,690 </td><td> 7,706 </td><td> 7,452 </td></tr>
+                                <tr><td>Morelos</td><td> 1,528 </td><td> 2,566 </td><td> 977 </td><td> 2,037 </td><td> 2,127 </td><td> 2,331 </td><td> 977 </td></tr>
+                                <tr><td>México</td><td> 949 </td><td> 976 </td><td> 1,139 </td><td> 933 </td><td> 1,017 </td><td> 1,027 </td><td> 1,017 </td></tr>
+                                <tr><td>Nayarit</td><td> 982 </td><td> 1,130 </td><td> 2,505 </td><td> 1,144 </td><td> 1,166 </td><td> 1,177 </td><td> 983 </td></tr>
+                                <tr><td>Nuevo León</td><td> 2,405 </td><td> 2,481 </td><td> 4,175 </td><td> 2,547 </td><td> 2,602 </td><td> 2,655 </td><td> 2,689 </td></tr>
+                                <tr><td>Oaxaca</td><td> 3,577 </td><td> 3,557 </td><td> 3,983 </td><td> 646 </td><td> 4,114 </td><td> 4,197 </td><td> 4,190 </td></tr>
+                                <tr><td>Puebla</td><td> 1,188 </td><td> 4,390 </td><td> 1,197 </td><td> 3,477 </td><td> 1,236 </td><td> 1,241 </td><td> 1,242 </td></tr>
+                                <tr><td>Querétaro</td><td> 710 </td><td> 1,319 </td><td> 734 </td><td> 1,222 </td><td> 759 </td><td> 778 </td><td> 779 </td></tr>
+                                <tr><td>Quintana Roo</td><td> 3,159 </td><td> 718 </td><td> 2,758 </td><td> 745 </td><td> 2,747 </td><td> 2,756 </td><td> 2,772 </td></tr>
+                                <tr><td>San Luis Potosí</td><td> 1,477 </td><td> 2,930 </td><td> 2,303 </td><td> 2,747 </td><td> 2,336 </td><td> 2,372 </td><td> 2,331 </td></tr>
+                                <tr><td>Sinaloa</td><td> 1,667 </td><td> 2,407 </td><td> 1,731 </td><td> 2,321 </td><td> 1,747 </td><td> 1,617 </td><td> 1,761 </td></tr>
+                                <tr><td>Sonora</td><td> 1,868 </td><td> 1,699 </td><td> 1,923 </td><td> 1,730 </td><td> 1,924 </td><td> 1,922 </td><td> 1,920 </td></tr>
+                                <tr><td>Tabasco</td><td> 2,250 </td><td> 2,120 </td><td> 2,246 </td><td> 1,927 </td><td> 2,271 </td><td> 2,319 </td><td> 2,318 </td></tr>
+                                <tr><td>Tamaulipas</td><td> 643 </td><td> 2,335 </td><td> 622 </td><td> 2,241 </td><td> 760 </td><td> 718 </td><td> 691 </td></tr>
+                                <tr><td>Tlaxcala</td><td> 8,594 </td><td> 385 </td><td> 8,593 </td><td> 672 </td><td> 8,630 </td><td> 8,565 </td><td> 8,670 </td></tr>
+                                <tr><td>Veracruz</td><td> 1,324 </td><td> 9,460 </td><td> 1,217 </td><td> 8,627 </td><td> 1,254 </td><td> 1,270 </td><td> 1,280 </td></tr>
+                                <tr><td>Yucatán</td><td> 1,551 </td><td> 1,221 </td><td> 1,791 </td><td> 1,228 </td><td> 1,778 </td><td> 1,774 </td><td> 1,705 </td></tr>
+                                <tr><td>Zacatecas</td><td> -   </td><td> 1,787 </td><td> -   </td><td> 1,992 </td><td> -   </td><td> -   </td><td> -   </td></tr>
                             </tbody></table>
-
 
                         <small>
                             Nota: El algunos años, el número de escuelas es menor porque la prueba no se implementó a todos los niveles. Es decir, en los años en los cuáles no se aplicó en secundaria, el número de escuelas es menor.    </small>
@@ -840,6 +849,8 @@
 
                     Las gráficas muestran una pendiente positiva del año 2011 hasta el 2008, esta pendiente negativa indica que de los alumnos que iban en sexto en un año dado, se encuentra un porcentaje menor el año anterior. La progresion monotona no es explicada por deserción dado que estmos condicionando en los ultimos años. Una posibilidad es que se encuentren menos alumnos en los años anteriores porque con el tiempo se incorporaron más escuelas a la prueba ENLACE y se obtuvieron datos de más alumnos por escuela. Es decir, los estudiantes que estaban en sexto de primaria y no se encontraron en los años anteriores pudieron haber faltado; su escuela pudo no participar en la prueba antes de ese año; los datos de su escuela en los años anteriores estaban incompletos o no hubo forma de seguir al estudiante a través de los años por errores al registrar su nombre o CURP. 
 
+
+
                     <p></p>
                     <p></p>
                     <p></p>
@@ -847,68 +858,6 @@
                     <p></p>
 
 
-
-                    <div class="mb-4" id="inasis-section" >
-                        <div class="col-12 text-center">
-                            <h3 class="h3 mb-4 text-black"> 
-                                Inasistencias
-                            </h3>
-                            Por último quisiéramos decir algo sobre inasistencias. Pero para hacer esto debemos tener cuidado en distinguir inasistencias de deserción, o de casos en los que por los periodos muestrales no tenemos información. 
-                            <p></p>
-                        </div>
-                    </div>
-
-                    <div class="row" >
-                        <div class="col-lg-6 mb-5" data-aos="fade-up" data-aos-delay="">
-                            <figure >
-                                <img src="images/reporte/inasis.png" alt="Free Website Template by Free-Template.co" class="img-fluid">
-                            </figure>
-
-                            <figure >
-                                <img src="images/reporte/faltas.png" alt="Free Website Template by Free-Template.co" class="img-fluid">
-                            </figure>
-
-
-                            <figure >
-                                <img src="images/reporte/tabla_inas.png" alt="Free Website Template by Free-Template.co" class="img-fluid">
-                            </figure>
-                        </div>
-
-
-                        <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="100">
-
-                            <div class="mb-4">
-
-                                A continuación presentamos un ejemplo de cómo se calcularon inasistencias para la generación que llamamos “7” anteriormente.. Cuando analizamos las faltas nos podemos dar cuenta que existen distintos patrones, hay personas que nunca fueron al examen, que nunca faltaron, que faltaron sólo en un año, etc. En esta tabla un renglón es un patrón. A continuación, se muestran los patrones que aparecieron es más de 1% de los alumnos de la generación. Y las primeras 5 columnas indican como se ve el patrón, cero significa que no presentó el examen cualquier número distinto a cero indica el grado en el que iba esa generación en ese año y que sí presentó el examen. Marcados con rojo están los ceros que consideramos como faltas. Si un cero es blanco no se tomó en cuenta para contabilizar las inasistencias. La parte derecha de la tabla indica totales. 
-                                <p></p>
-                                El primer renglón de la tabla muestra que hay 93,905 alumnos de la generación 7 que aparecen en primero de secundaria en 2012 pero que no aparecen en ningún año del 2008 al 2012. Los cuadros en rojo indican lo que creemos que son “inasistencias” (o errores): sabemos que el niño debió estar en alguna escuela sin embargo no lo observamos. El segundo renglón toma a la generación 7  de nuevo, que debía estar en sexto de primaria en 2011. Noten en este renglón en el 2012 hay un cero pero no esta en rojo porque como no sabemos si desertó al siguiente año, no lo podemos llamarlo inasistencia. De esta forma para la generacion 7 calculamos inasistencias como el numero de ceros en esta tabla por año, y luego dividimos por el numero de alumnos de esa generacion que observamos ese año.
-
-                            </div>
-
-                        </div>
-
-                        <div class="mb-4">
-                            <div class="col-12 text-center">
-                                <p></p>
-                                Tomemos el renglón 5 por ejemplo, tiene un 5 en la columna a 2010 y un 6 en la columna 2011. Esto quiere decir que 34,919 niños (se lee de la columna “numero”) no presentaron el examen en 2009 y 2008 por lo que los tratamos como faltas y en 2010 estaban en quinto de primaria y sí presentaron el examen. En sexto de primaria en 2011 también presentaron el examen. En 2012 no hicieron la prueba ENLACE pero no lo contamos como falta porque no sabemos si faltaron o abandonaron la escuela. 
-
-                                <p></p>
-                                Después se suman las faltas de cada año que hubo en esa generación: 555,528 en 2008. Con esto calculamos el porcentaje respecto al total de alumnos que asistían en esa generación en ese año este se calcula de la siguiente manera:
-                                <figure >
-                                    <img src="images/reporte/faltas_eq.png" alt="Free Website Template by Free-Template.co" class="img-fluid">
-                                </figure>
-                                <p></p>
-                                En la tabla hacemos este calculo para todas las generaciones. Usamos dos símbolos: “.” significa que ese año la generación no presentó el examen. Por ejemplo: la generación que llamamos “5 en 2012” no presentó el examen en 2009 porque en ese año estaban en segundo de primaria y la prueba de Enlace se presentaba a partir de tercero de primaria. El segundo símbolo: “x” significa que la generación sí presentó el examen, pero no contamos con suficiente información para saber si la ausencia de la calificación es una inasistencia o se trata de un alumno que abandonó sus estudios, por ser el último año que tenemos información de esa generación. Los porcentajes de inasistencias excluyen a alumnos que reprobaron , porque no queda claro a que generación pertenecen.
-                                <p></p>
-                                Las inasistencias “interiores” rondan entre el 7% y el 19% si excluimos el 2006 y el 2007. Recuerden que estamos llamando “inasistencias” a los hoyos que hay en los datos dentro de los años en los que podemos seguir a un alumno. En particular, nos interesa saber en cuanto casos un alumno aparece, luego el siguiente año o años deja de aparecer y luego lo volvemos a ver. Esto podría ser un tema de inasistencias o de ausencia de datos. El hecho de que ronden entre el 7% y el 19% es reconfortante, ya que según entendemos las inasistencias pueden estar cerca de 15% en la realidad. 
-                                <p></p>
-                                Una vez más, la base de datos del 2006 parece de menor calidad. El número de faltas es mucho mayor a comparación del resto de los años. Los porcentajes disminuyen mucho conforme nos acercamos a los últimos datos observados por generación, esto puede deberse a que usando criterio de faltas que usamos nosotros: “si el alumno no presenta el examen en un año pero si lo presenta en algún año subsecuente, lo tratamos como falta” puede haber ausencias tratadas como abandono escolar y no como faltas.  Por ejemplo, un alumno que falte al examen en 2010, 2011 y 2012 no lo contamos porque no tenemos manera de distinguirlo de un caso de abandono escolar. Mientras más cercano está el año en cuestión al 2012 más probable es que tratemos un caso de falta como abandono escolar porque hay menos años después donde el alumno pudo haber presentado la prueba.  
-                                <p></p>
-
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
 
 
@@ -1005,6 +954,10 @@
                         </div>
                     </div>
 
+            </section>
+
+            <div class="container">
+                <div class="row" id="dist-section">
                     <div class="col-12 text-center" data-aos="fade-up" data-aos-delay="100" id="cierra-section">
                         <div class="mb-4">
                             <h3 class="h3 mb-4 text-black"> 
@@ -1018,16 +971,16 @@
                                     Cierres
                                 </h2>
                                 <p>
-                                    Esta sección cuenta, por cada año, cuantos cierres y cuantas aperturas de escuelas hubo. Usamos dos definiciones de cierre:
+                                    Esta sección cuenta, por cada año, cuántos cierres y cuántas aperturas de escuelas hubo. Usamos dos definiciones de cierre:
                                 </p>
                                 <div class="mb-4">
                                     <ul class="list-unstyled ul-check success">
-                                        <li>Cierres simples: es cuando una escuela identificada por su folio CCT está en un año y no está el siguiente año ni ningún año subsecuente. Es decir, ningún alumno presenta la prueba Enlace en ningún año posterior.
+                                        <li>Cierres simples: es cuando una escuela identificada por su folio CCT está en un año y no está el siguiente año ni en ningún año subsecuente. Es decir, ningún alumno presenta la prueba Enlace en ningún año posterior.
                                             <p>
-                                                En esta definición si la misma escuela (mismo edificio y mismos maestros) cambiaran el folio CCT lo contaríamos como un cierre de escuela. La siguiente definición es más estricta.
+                                                En esta definición, si la misma escuela (mismo edificio y mismos maestros) cambiaran el folio CCT lo contaríamos como un cierre de escuela. La siguiente definición es más estricta.
                                             </p>
                                         </li>
-                                        <li> Cierres con alumnos en otras escuelas: una escuela cierra en esta definición cuando (al igual que la definición anterior) identificada por su folio CCT está en un año y no está el siguiente año ni ningún año subsecuente, pero adicionalmente encontramos al menos a 25% de los alumnos del año anterior en otras escuelas. La Tabla 4 también considera otra definición en donde se encuentran 40% de los alumnos.
+                                        <li> Cierres con alumnos en otras escuelas: una escuela cierra en esta definición cuando (al igual que la definición anterior) identificada por su folio CCT está en un año y no está el siguiente año ni en ningún año subsecuente, pero adicionalmente, encontramos al menos a 25% de los alumnos del año anterior en otras escuelas. La Tabla 4 también considera otra definición en donde se encuentran 40\% de los alumnos.
                                         </li>
 
                                     </ul>
@@ -1041,41 +994,22 @@
                                 <p></p>
                                 <p></p>
                                 <p></p>
-                                <div class="col-12 text-center" data-aos="fade-up" data-aos-delay="100">
-                                    <h3>
-                                        Escuelas cerradas por años para primarias y secundarias (definiciones múltiples) 
-                                    </h3>
-                                    <table class="tableizer-table" align="center">
-                                        <thead><tr class="tableizer-firstrow"><th>año</th><th>total</th><th>Número de escuelas que dejan de aparecer entre un año y otro</th><th>porcentaje </th><th>25% de alumnos encontrados al siguiente año</th><th>porcentaje </th><th>40% de alumnos encontrados al siguiente año</th><th>porcentaje </th></tr></thead><tbody>
-                                            <tr><td>2006</td><td>111253</td><td>1146</td><td>1.03%</td><td>1014</td><td>0.91%</td><td>926</td><td>0.83%</td></tr>
-                                            <tr><td>2007</td><td>119893</td><td>1214</td><td>1.01%</td><td>863</td><td>0.72%</td><td>724</td><td>0.60%</td></tr>
-                                            <tr><td>2008</td><td>119957</td><td>2664</td><td>2.22%</td><td>1624</td><td>1.35%</td><td>1492</td><td>1.24%</td></tr>
-                                            <tr><td>2009</td><td>117732</td><td>2410</td><td>2.05%</td><td>2098</td><td>1.78%</td><td>1801</td><td>1.53%</td></tr>
-                                            <tr><td>2010</td><td>119843</td><td>5030</td><td>4.20%</td><td>2972</td><td>2.48%</td><td>1686</td><td>1.41%</td></tr>
-                                        </tbody></table>
-                                    <p></p>
-                                    <p></p>
-                                    <p></p>
-                                    <p></p>
-                                    <p></p>
-                                    <p></p>
-                                    <p></p>
-                                    <p></p>
-                                </div>
+
                                 <div class="col-12 text-center" data-aos="fade-up" data-aos-delay="100">
                                     <h3>
                                         Escuelas cerradas por años para primarias públicas (definiciones)  
                                     </h3>
 
 
-                                    <table class="tableizer-table" align="center">
-                                        <thead><tr class="tableizer-firstrow"><th>año</th><th>Número de escuelas que dejan de aparecer entre un año y otro</th><th>porcentaje</th><th>25% de alumnos encontrados al siguiente año</th><th>porcentaje</th><th>40% de alumnos encontrados al siguiente año</th><th>porcentaje</th><th>total</th></tr></thead><tbody>
-                                            <tr><td>2006</td><td>963</td><td>1.21%</td><td>862</td><td>1.08%</td><td>795</td><td>1.00%</td><td>79475</td></tr>
-                                            <tr><td>2007</td><td>969</td><td>1.14%</td><td>719</td><td>0.85%</td><td>607</td><td>0.71%</td><td>84949</td></tr>
-                                            <tr><td>2008</td><td>2243</td><td>2.67%</td><td>1374</td><td>1.64%</td><td>1277</td><td>1.52%</td><td>83995</td></tr>
-                                            <tr><td>2009</td><td>1391</td><td>1.72%</td><td>1256</td><td>1.55%</td><td>1199</td><td>1.48%</td><td>80779</td></tr>
-                                            <tr><td>2010</td><td>398</td><td>0.49%</td><td>311</td><td>0.38%</td><td>249</td><td>0.30%</td><td>81844</td></tr>
-                                            <tr><td>2011</td><td>4413</td><td>5.34%</td><td>2208</td><td>2.67%</td><td>1825</td><td>2.21%</td><td>82585</td></tr>
+                                    <table class="tableizer-table">
+                                        <thead><tr class="tableizer-firstrow"><th>Año</th><th>Total</th><th>Número de escuelas que cierran</th><th>Porcentaje</th><th>25% de alumnos encontrados al siguiente año</th><th>Porcentaje</th><th>40% de alumnos encontrados al siguiente año</th><th>Porcentaje</th></tr></thead><tbody>
+                                            <tr><td>2006</td><td>5358</td><td>77</td><td>1.44%</td><td>60</td><td>1.12%</td><td>37</td><td>0.69%</td></tr>
+                                            <tr><td>2007</td><td>6842</td><td>116</td><td>1.70%</td><td>80</td><td>1.17%</td><td>58</td><td>0.85%</td></tr>
+                                            <tr><td>2008</td><td>6949</td><td>143</td><td>2.06%</td><td>126</td><td>1.81%</td><td>112</td><td>1.61%</td></tr>
+                                            <tr><td>2009</td><td>7472</td><td>176</td><td>2.36%</td><td>126</td><td>1.69%</td><td>111</td><td>1.49%</td></tr>
+                                            <tr><td>2010</td><td>7647</td><td>143</td><td>1.87%</td><td>120</td><td>1.57%</td><td>98</td><td>1.28%</td></tr>
+                                            <tr><td>2011</td><td>7836</td><td>271</td><td>3.46%</td><td>163</td><td>2.08%</td><td>146</td><td>1.86%</td></tr>
+                                            <tr><td>2012</td><td>7880</td><td>0</td><td>0.00%</td><td>0</td><td>0.00%</td><td>0</td><td>0.00%</td></tr>
                                         </tbody></table>
 
                                     <p></p>
@@ -1093,14 +1027,15 @@
                                         Escuelas cerradas por años para primarias privadas (definiciones múltiples) 
                                     </h3>
 
-                                    <table class="tableizer-table" align="center">
-                                        <thead><tr class="tableizer-firstrow"><th>año</th><th>número de escuelas que dejan de aparecer al siguiente año</th><th>porcentaje</th><th>25% de alumnos encontrados al siguiente año</th><th>porcentaje</th><th>40% de alumnos encontrados al siguiente año</th><th>porcentaje</th><th>total</th></tr></thead><tbody>
-                                            <tr><td>2006</td><td>106</td><td>1.65%</td><td>88</td><td>1.37%</td><td>67</td><td>1.05%</td><td>6410</td></tr>
-                                            <tr><td>2007</td><td>122</td><td>1.74%</td><td>87</td><td>1.24%</td><td>64</td><td>0.91%</td><td>6995</td></tr>
-                                            <tr><td>2008</td><td>151</td><td>2.15%</td><td>134</td><td>1.90%</td><td>120</td><td>1.71%</td><td>7035</td></tr>
-                                            <tr><td>2009</td><td>180</td><td>2.40%</td><td>131</td><td>1.75%</td><td>116</td><td>1.55%</td><td>7486</td></tr>
-                                            <tr><td>2010</td><td>139</td><td>1.82%</td><td>117</td><td>1.53%</td><td>91</td><td>1.19%</td><td>7658</td></tr>
-                                            <tr><td>2011</td><td>252</td><td>3.19%</td><td>165</td><td>2.09%</td><td>148</td><td>1.88%</td><td>7891</td></tr>
+                                    <table class="tableizer-table">
+                                        <thead><tr class="tableizer-firstrow"><th>Año</th><th>Total</th><th>Número de escuelas que abren</th><th>Porcentaje</th><th>25% de alumnos encontrados al siguiente año</th><th>Porcentaje</th><th>40% de alumnos encontrados al siguiente año</th><th>Porcentaje</th></tr></thead><tbody>
+                                            <tr><td>2006</td><td>61232</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                            <tr><td>2007</td><td>75925</td><td>2374</td><td>3.13%</td><td>149</td><td>0.20%</td><td>97</td><td>0.13%</td></tr>
+                                            <tr><td>2008</td><td>74484</td><td>514</td><td>0.69%</td><td>245</td><td>0.33%</td><td>135</td><td>0.18%</td></tr>
+                                            <tr><td>2009</td><td>71439</td><td>454</td><td>0.64%</td><td>316</td><td>0.44%</td><td>255</td><td>0.36%</td></tr>
+                                            <tr><td>2010</td><td>72041</td><td>377</td><td>0.52%</td><td>253</td><td>0.35%</td><td>188</td><td>0.26%</td></tr>
+                                            <tr><td>2011</td><td>72942</td><td>488</td><td>0.67%</td><td>335</td><td>0.46%</td><td>264</td><td>0.36%</td></tr>
+                                            <tr><td>2012</td><td>65372</td><td>346</td><td>0.53%</td><td>249</td><td>0.38%</td><td>209</td><td>0.32%</td></tr>
                                         </tbody></table>
                                 </div>
 
@@ -1134,28 +1069,7 @@
                             <p></p>
                             <p></p>
                             <p></p>
-                            <div class="col-12 text-center" data-aos="fade-up" data-aos-delay="100">
-                                <h3>
-                                    Escuelas que se incorporan a la base
-                                </h3>
 
-                                <table class="tableizer-table" align="center">
-                                    <thead><tr class="tableizer-firstrow"><th>año</th><th>total</th><th>abre</th><th>&nbsp;</th><th>25%</th><th>&nbsp;</th><th>40%</th><th>&nbsp;</th></tr></thead><tbody>
-                                        <tr><td>2007</td><td>119893</td><td>487</td><td>0.41%</td><td>313</td><td>0.26%</td><td>277</td><td>0.23%</td></tr>
-                                        <tr><td>2008</td><td>119957</td><td>3882</td><td>3.24%</td><td>2075</td><td>1.73%</td><td>1755</td><td>1.46%</td></tr>
-                                        <tr><td>2009</td><td>117732</td><td>1512</td><td>1.28%</td><td>1198</td><td>1.02%</td><td>1118</td><td>0.95%</td></tr>
-                                        <tr><td>2010</td><td>119843</td><td>1915</td><td>1.60%</td><td>1710</td><td>1.43%</td><td>1608</td><td>1.34%</td></tr>
-                                        <tr><td>2012</td><td>114268</td><td>10358</td><td>9.06%</td><td>8020</td><td>7.02%</td><td>6614</td><td>5.79%</td></tr>
-                                    </tbody></table>
-                                <p></p>
-                                <p></p>
-                                <p></p>
-                                <p></p>
-                                <p></p>
-                                <p></p>
-                                <p></p>
-                                <p></p>
-                            </div>
 
                             <div class="col-12 text-center" data-aos="fade-up" data-aos-delay="100">
                                 <h3>
@@ -1163,14 +1077,15 @@
                                 </h3>
 
 
-                                <table class="tableizer-table"  align="center">
-                                    <thead><tr class="tableizer-firstrow"><th>año</th><th>número de escuelas que empiezan de aparecer en un año</th><th>porcentaje</th><th>25% de alumnos encontrados al año anterior</th><th>porcentaje</th><th>40% de alumnos encontrados al año anterior</th><th>porcentaje</th><th>total</th></tr></thead><tbody>
-                                        <tr><td>2007</td><td>5011</td><td>6.31%</td><td>2853</td><td>3.59%</td><td>2367</td><td>2.98%</td><td>79475</td></tr>
-                                        <tr><td>2008</td><td>1128</td><td>1.33%</td><td>994</td><td>1.17%</td><td>887</td><td>1.04%</td><td>84949</td></tr>
-                                        <tr><td>2009</td><td>1773</td><td>2.11%</td><td>1666</td><td>1.98%</td><td>1611</td><td>1.92%</td><td>83995</td></tr>
-                                        <tr><td>2010</td><td>1436</td><td>1.78%</td><td>1299</td><td>1.61%</td><td>1227</td><td>1.52%</td><td>80779</td></tr>
-                                        <tr><td>2011</td><td>483</td><td>0.59%</td><td>331</td><td>0.40%</td><td>251</td><td>0.31%</td><td>81844</td></tr>
-                                        <tr><td>2012</td><td>1281</td><td>1.55%</td><td>1204</td><td>1.46%</td><td>1169</td><td>1.42%</td><td>82585</td></tr>
+                                <table class="tableizer-table">
+                                    <thead><tr class="tableizer-firstrow"><th>Año</th><th>Total</th><th>Número de escuelas que abren</th><th>Porcentaje</th><th>25% de alumnos encontrados al siguiente año</th><th>Porcentaje</th><th>40% de alumnos encontrados al siguiente año</th><th>Porcentaje</th></tr></thead><tbody>
+                                        <tr><td>2006</td><td>5358</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                        <tr><td>2007</td><td>6842</td><td>613</td><td>8.96%</td><td>64</td><td>0.94%</td><td>37</td><td>0.54%</td></tr>
+                                        <tr><td>2008</td><td>6949</td><td>195</td><td>2.81%</td><td>100</td><td>1.44%</td><td>63</td><td>0.91%</td></tr>
+                                        <tr><td>2009</td><td>7472</td><td>245</td><td>3.28%</td><td>117</td><td>1.57%</td><td>68</td><td>0.91%</td></tr>
+                                        <tr><td>2010</td><td>7647</td><td>261</td><td>3.41%</td><td>144</td><td>1.88%</td><td>92</td><td>1.20%</td></tr>
+                                        <tr><td>2011</td><td>7836</td><td>219</td><td>2.79%</td><td>149</td><td>1.90%</td><td>103</td><td>1.31%</td></tr>
+                                        <tr><td>2012</td><td>7880</td><td>278</td><td>3.53%</td><td>177</td><td>2.25%</td><td>118</td><td>1.50%</td></tr>
                                     </tbody></table>
                                 <p></p>
                                 <p></p>
@@ -1187,20 +1102,23 @@
                                     Escuelas que se incorporan a la base, primarias privadas
                                 </h3>
 
-                                <table class="tableizer-table" align="center">
-                                    <thead><tr class="tableizer-firstrow"><th>año</th><th>número de escuelas que empiezan de aparecer en un año</th><th>porcentaje</th><th>25% de alumnos encontrados al año anterior</th><th>porcentaje</th><th>40% de alumnos encontrados al año anterior</th><th>porcentaje</th><th>total</th></tr></thead><tbody>
-                                        <tr><td>2007</td><td>396</td><td>6.18%</td><td>140</td><td>2.18%</td><td>102</td><td>1.59%</td><td>6410</td></tr>
-                                        <tr><td>2008</td><td>235</td><td>3.36%</td><td>150</td><td>2.14%</td><td>106</td><td>1.52%</td><td>6995</td></tr>
-                                        <tr><td>2009</td><td>238</td><td>3.38%</td><td>134</td><td>1.90%</td><td>79</td><td>1.12%</td><td>7035</td></tr>
-                                        <tr><td>2010</td><td>278</td><td>3.71%</td><td>159</td><td>2.12%</td><td>106</td><td>1.42%</td><td>7486</td></tr>
-                                        <tr><td>2011</td><td>216</td><td>2.82%</td><td>143</td><td>1.87%</td><td>97</td><td>1.27%</td><td>7658</td></tr>
-                                        <tr><td>2012</td><td>297</td><td>3.76%</td><td>210</td><td>2.66%</td><td>159</td><td>2.01%</td><td>7891</td></tr>
+                                <table class="tableizer-table">
+                                    <thead><tr class="tableizer-firstrow"><th>Año</th><th>Total</th><th>Número de escuelas que abren</th><th>Porcentaje</th><th>25% de alumnos encontrados al siguiente año</th><th>Porcentaje</th><th>40% de alumnos encontrados al siguiente año</th><th>Porcentaje</th></tr></thead><tbody>
+                                        <tr><td>2006</td><td>61232</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                        <tr><td>2007</td><td>75925</td><td>2374</td><td>3.13%</td><td>149</td><td>0.20%</td><td>97</td><td>0.13%</td></tr>
+                                        <tr><td>2008</td><td>74484</td><td>514</td><td>0.69%</td><td>245</td><td>0.33%</td><td>135</td><td>0.18%</td></tr>
+                                        <tr><td>2009</td><td>71439</td><td>454</td><td>0.64%</td><td>316</td><td>0.44%</td><td>255</td><td>0.36%</td></tr>
+                                        <tr><td>2010</td><td>72041</td><td>377</td><td>0.52%</td><td>253</td><td>0.35%</td><td>188</td><td>0.26%</td></tr>
+                                        <tr><td>2011</td><td>72942</td><td>488</td><td>0.67%</td><td>335</td><td>0.46%</td><td>264</td><td>0.36%</td></tr>
+                                        <tr><td>2012</td><td>65372</td><td>346</td><td>0.53%</td><td>249</td><td>0.38%</td><td>209</td><td>0.32%</td></tr>
                                     </tbody></table>
                             </div>
                         </div>
                     </div>
 
+
                 </div>
+
 
 
                 <div class="container">
@@ -1211,11 +1129,10 @@
                                     Distancias
                                 </h2>
                                 <p>
-                                    Aunque no es parte de la información proporcionada por el banco mundial, y no esta en el código de Stata que reportamos hicimos un breve análisis usando distancia entre escuelas. Para calcular estas distancias primero conseguimos información adicional de las coordenadas GPS de cada una de las escuelas. Nos concentramos en distancias por calle (i.e. no linealesentre esci
-                                </p>
+                                    Aunque no es parte de la información proporcionada por el Banco Mundial, y no está en el código de Stata que reportamos, hicimos un breve análisis usando distancia entre escuelas. Para calcular estas distancias primero conseguimos información adicional de las coordenadas GPS de cada una de las escuelas. Nos concentramos en distancias por calle (i.e. no lineales entre escuelas)  </p>
 
                                 <p>
-                                    Otro chequeo de información que hicimos tiene que ver con las distancias entre una escuela que cierra y la escuela a donde los alumnos se cambian.Después, habiendo identificado las escuelas que cierran, seguimos a los niños que estaban en estas escuelas a las nuevas escuelas. Podemos encontrar     al 49% de los alumnos de primaria en escuelas que cierran en una escuela diferente el siguiente año. Paso seguido, calculamos las distancias por caminos (“road distance”) entre esas escuelas en una base de datos donde una observación es un niño que se cambia de escuela.   
+                                    Otro chequeo de información que hicimos tiene que ver con las distancias entre una escuela que cierra y la escuela que recibe a los alumnos se cambian. Después, habiendo identificado las escuelas que cerraron, seguimos a los niños que estaban en estas escuelas a las nuevas escuelas. Podemos encontrar al 49% de los alumnos de primaria en escuelas que cierran en una escuela diferente el siguiente año. Paso seguido, calculamos las distancias por caminos (road distance) entre esas escuelas en una base de datos donde una observación es un niño que se cambia de escuela. 
                                 </p>
 
                                 <p>
@@ -1239,239 +1156,244 @@
                 </div>
 
 
-            </section>
 
 
 
-            <div class="site-section cta-big-image" id="raw-section">
-                <div class="container">
-                    <div class="row mb-5 justify-content-center">
-                        <div class="col-md-8 text-center">
-                            <img src="images/raw.jpg" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
 
-                            <h2 class="text-black mb-4" data-aos="fade-up" data-aos-delay="">Bases originales</h2>
-                            <p></p>
-                            Las bases originales son las bases utilizadas para construir el panel ENLACE y panel F911. 
-                            <p></p>
-                            <a href="https://www.dropbox.com/sh/zd9da54umtsdqlf/AADAnueU3XHYFHgqmumww2RCa?dl=0" download target="_blank">Descargar bases ENLACE originales</a>
-                            <p></p>
-                            <a href="https://www.dropbox.com/sh/cz5vvwidnyvnss2/AADuSIGMPxR_Y3xfNtpTCUwqa?dl=0" download target="_blank">Descargar bases F911 originales</a>
+                <div class="site-section cta-big-image" id="raw-section">
+                    <div class="container">
+                        <div class="row mb-5 justify-content-center">
+                            <div class="col-md-8 text-center">
+                                <img src="images/raw.jpg" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
 
+                                <h2 class="text-black mb-4" data-aos="fade-up" data-aos-delay="">Bases originales</h2>
+                                <p></p>
+                                Las bases originales son las bases utilizadas para construir el panel ENLACE y panel F911. 
+                                <p></p>
+                                <a href="https://www.dropbox.com/sh/zd9da54umtsdqlf/AADAnueU3XHYFHgqmumww2RCa?dl=0" download target="_blank">Descargar bases ENLACE originales</a>
+                                <p></p>
+                                <a href="https://www.dropbox.com/s/hrjo5vuclfveqi6/911%20PRIMARIA.zip?dl=0" download target="_blank">Descargar bases F911 originales</a>
+
+                            </div>
                         </div>
+                    </div>
+                </div>
+                <div class="site-section cta-big-image" id="paneles-section">
+                    <div class="container">
+                        <div class="row mb-5 justify-content-center">
+                            <div class="col-md-8 text-center">
+                                <img src="images/evol.png" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
+
+                                <h2 class="text-black mb-4" data-aos="fade-up" data-aos-delay="">Paneles generados</h2>
+                                <p></p>
+                                Utilizando las bases originales se construyeron el panel ENLACE y panel F911. 
+                                <p></p>
+                                <a href="https://www.dropbox.com/s/nsrp0i3grnf1pew/Allnames.zip?dl=0" download target="_blank">Descargar panel ENLACE fuzzy (anonimizado)</a>
+                                <p></p>
+                                <a href="https://www.dropbox.com/s/nsrp0i3grnf1pew/Allnames.zip?dl=0" download target="_blank">Descargar panel ENLACE exacto (anonimizado)</a>
+
+                                <p></p>
+                                <a href=https://www.dropbox.com/s/uxyooi5snr4mcjg/panel911_primaria_0616.zip?dl=0 download target="_blank">Descargar panel F911</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <section class="site-section" id="dofiles-section">
+                    <div class="container">
+                        <div class="row mb-5">
+                            <div class="col-12 text-center" data-aos="fade">
+                                <h2 class="section-title mb-3">Do files</h2>
+                            </div>
+                        </div>
+                        <div class="row align-items-stretch">
+                            <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up">
+                                <div class="unit-4">
+                                    <div class="unit-4-icon">
+                                        <img src="images/flaticon-svg/svg/rocket.svg" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
+                                    </div>
+                                    <div>
+                                        <h3>Genera panel ENLACE</h3>
+                                        <p>El do file genera Panel ENLACE.</p>
+                                        <p><a href="./dofiles/genera panel ENLACE.do" download target="_blank">Descargar do file que genera panel ENLACE</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="100">
+                                <div class="unit-4">
+                                    <div class="unit-4-icon">
+                                        <img src="images/flaticon-svg/svg/research.svg" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
+                                    </div>
+                                    <div>
+                                        <h3>Análisis Panel ENLACE</h3>
+                                        <p>El siguiente do files hace el análisis reportado en este documento.</p>
+                                        <p><a href="./dofiles/reporte.do" download target="_blank">Descargar do file que genera análisis con el panel ENLACE</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="200">
+                                <div class="unit-4">
+                                    <div class="unit-4-icon">
+                                        <img src="images/flaticon-svg/svg/school.svg" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
+                                    </div>
+                                    <div>
+                                        <h3>Genera panel F911</h3>
+                                        <p>El siguiente dofile genera el Panel F911</p>
+                                        <p><a href="./dofiles/limpiaf911.do" download target="_blank">Descargar do file genera el panel f911</a></p>
+                                        <p><a href="./dofiles/reportef911.do" download target="_blank">Descargar do file genera el análisis con el panel f911</a></p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+
+        <section class="site-section bg-light" id="contact-section" data-aos="fade">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-12 text-center">
+                        <h2 class="section-title mb-3">Contáctanos</h2>
+                    </div>
+                </div>
+                <div class="row mb-5">
+
+
+
+                    <div class="col-md-4 text-center">
+                        <p class="mb-4">
+                            <span class="icon-room d-block h2 text-primary"></span>
+                            <span>ITAM, Av. Camino de Santa Teresa #930, Ciudad de México</span>
+                        </p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <p class="mb-4">
+                            <span class="icon-phone d-block h2 text-primary"></span>
+                        <p>+55 56284000</p>
+
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <p class="mb-0">
+                            <span class="icon-mail_outline d-block h2 text-primary"></span>
+                        <p>enrique.seira@itam.mx</p>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mb-5">
+
+                        <form  method="POST" action="http://formspree.io/pmejiado@gmail.com">
+                            <h2 class="h4 text-black mb-5">Formulario de Contacto</h2> 
+
+                            <div class="row form-group">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <label class="text-black" for="fname">Nombre Completo</label>
+                                    <input type="text" name="name" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <label class="text-black" for="email">Email</label> 
+                                    <input type="email" name="_replyto" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <label class="text-black" for="subject">Asunto</label> 
+                                    <input type="text" name="_subject" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <label class="text-black" for="message">Mensaje</label> 
+                                    <textarea name="message" name="body" cols="30" rows="7" class="form-control" placeholder="Escribe tus comentarios o dudas aquí"></textarea>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <input type="submit" value="Enviar mensaje" class="btn btn-primary btn-md text-white">
+                                </div>
+                            </div>
+                            <input type="hidden" name="_next" value="https://paola-md.github.io/analisisENLACE/web/"/>
+                        </form>                         
                     </div>
                 </div>
             </div>
-                        <div class="site-section cta-big-image" id="paneles-section">
-                <div class="container">
-                    <div class="row mb-5 justify-content-center">
-                        <div class="col-md-8 text-center">
-                            <img src="images/evol.png" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
+        </section>
 
-                            <h2 class="text-black mb-4" data-aos="fade-up" data-aos-delay="">Paneles generados</h2>
-                            <p></p>
-                            Utilizando las bases originales se construyeron el panel ENLACE y panel F911. 
-                            <p></p>
-                            <a href="https://www.dropbox.com/s/nsrp0i3grnf1pew/Allnames.zip?dl=0" download target="_blank">Descargar panel ENLACE (anonimizado)</a>
-                            <p></p>
-                            <a href="./data/panel911_enlace.zip" download target="_blank">Descargar panel F911</a>
+
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <h2 class="footer-heading mb-4">¿Quiénes somos?</h2>
+                                <p>Reporte hecho por Bernardo Garcia Bulle, Marco Gonzalez y Enrique Seira</p>
+                                <p>Con ayuda de Salome Aguilar y Paola Mejia </p>
+                                <p>Revisado por Daniela Draaisma y Emiliano Ramírez</p>
+                            </div>
+                            <div class="col-md-3 ml-auto">
+                                <h2 class="footer-heading mb-4">Enlaces rápidos</h2>
+                                <ul class="list-unstyled">
+                                    <li><a href="#objetivo-section" class="smoothscroll">Objetivos</a></li>
+                                    <li><a href="#objetivo1-section" class="smoothscroll">Objetivo 1</a></li>
+                                    <li><a href="#objetivo2-section" class="smoothscroll">Objetivo 2</a></li>
+                                    <li><a href="#distrib-section" class="smoothscroll">Distribución de calificaciones</a></li>
+                                    <li><a href="#dofiles-section" class="smoothscroll">Código</a></li>
+                                    <li><a href="#contact-section" class="smoothscroll">Contáctanos</a></li>
+                                </ul>
+                            </div>
 
                         </div>
                     </div>
+
                 </div>
-            </div>
-            
-  
-
-
-
-
-            <section class="site-section" id="dofiles-section">
-                <div class="container">
-                    <div class="row mb-5">
-                        <div class="col-12 text-center" data-aos="fade">
-                            <h2 class="section-title mb-3">Do files</h2>
-                        </div>
-                    </div>
-                    <div class="row align-items-stretch">
-                        <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up">
-                            <div class="unit-4">
-                                <div class="unit-4-icon">
-                                    <img src="images/flaticon-svg/svg/rocket.svg" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
-                                </div>
-                                <div>
-                                    <h3>Genera panel ENLACE</h3>
-                                    <p>El do file genera panel ENLACE.</p>
-                                    <p><a href="./dofiles/genera panel.do" download target="_blank">Descargar do file que genera panel ENLACE</a></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="100">
-                            <div class="unit-4">
-                                <div class="unit-4-icon">
-                                    <img src="images/flaticon-svg/svg/research.svg" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
-                                </div>
-                                <div>
-                                    <h3>Análisis Panel</h3>
-                                    <p>El siguiente do files hace el análisis reportado en este documento.</p>
-                                    <p><a href="./dofiles/reporte.do" download target="_blank">Descargar do file que genera el reporte</a></p>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="200">
-                            <div class="unit-4">
-                                <div class="unit-4-icon">
-                                    <img src="images/flaticon-svg/svg/mop.svg" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
-                                </div>
-                                <div>
-                                    <h3>Genera panel F911</h3>
-                                    <p>El siguiente dofile genera el panel F911</p>
-                                    <p><a href="./dofiles/panel_f911.do" download target="_blank">Descargar do file de seguimiento calidad de base</a></p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-
-
-
-            <section class="site-section bg-light" id="contact-section" data-aos="fade">
-                <div class="container">
-                    <div class="row mb-5">
-                        <div class="col-12 text-center">
-                            <h2 class="section-title mb-3">Contáctanos</h2>
-                        </div>
-                    </div>
-                    <div class="row mb-5">
-
-
-
-                        <div class="col-md-4 text-center">
-                            <p class="mb-4">
-                                <span class="icon-room d-block h2 text-primary"></span>
-                                <span>ITAM, Av. Camino de Santa Teresa #930, Ciudad de México</span>
+                <div class="row pt-5 mt-5 text-center">
+                    <div class="col-md-12">
+                        <div class="border-top pt-5">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            <p>Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made
+                                with <i class="icon-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                             </p>
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <p class="mb-4">
-                                <span class="icon-phone d-block h2 text-primary"></span>
-                            <p>+55 56284000</p>
-
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <p class="mb-0">
-                                <span class="icon-mail_outline d-block h2 text-primary"></span>
-                            <p>enrique.seira@itam.mx</p>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12 mb-5">
 
-                            <form  method="POST" action="http://formspree.io/pmejiado@gmail.com">
-                                <h2 class="h4 text-black mb-5">Formulario de Contacto</h2> 
-
-                                <div class="row form-group">
-                                    <div class="col-md-6 mb-3 mb-md-0">
-                                        <label class="text-black" for="fname">Nombre Completo</label>
-                                        <input type="text" name="name" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-12">
-                                        <label class="text-black" for="email">Email</label> 
-                                        <input type="email" name="_replyto" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-12">
-                                        <label class="text-black" for="subject">Asunto</label> 
-                                        <input type="text" name="_subject" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col-md-12">
-                                        <label class="text-black" for="message">Mensaje</label> 
-                                        <textarea name="message" name="body" cols="30" rows="7" class="form-control" placeholder="Escribe tus comentarios o dudas aquí"></textarea>
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col-md-12">
-                                        <input type="submit" value="Enviar mensaje" class="btn btn-primary btn-md text-white">
-                                    </div>
-                                </div>
-                                <input type="hidden" name="_next" value="https://paola-md.github.io/analisisENLACE/web/"/>
-                            </form>                         
-                        </div>
-                    </div>
                 </div>
-            </section>
+            </div>
+        </footer>
 
+    </div> <!-- .site-wrap -->
 
-            <footer class="site-footer">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <h2 class="footer-heading mb-4">¿Quiénes somos?</h2>
-                                    <p>Reporte hecho por Bernardo Garcia Bulle, Marco Gonzalez y Enrique Seira</p>
-                                    <p>Con ayuda de Salome Aguilar y Paola Mejia </p>
-                                    <p>Revisado por Daniela Draaisma y Emiliano Ramírez</p>
-                                </div>
-                                <div class="col-md-3 ml-auto">
-                                    <h2 class="footer-heading mb-4">Enlaces rápidos</h2>
-                                    <ul class="list-unstyled">
-                                        <li><a href="#objetivo-section" class="smoothscroll">Objetivos</a></li>
-                                        <li><a href="#objetivo1-section" class="smoothscroll">Objetivo 1</a></li>
-                                        <li><a href="#objetivo2-section" class="smoothscroll">Objetivo 2</a></li>
-                                        <li><a href="#distrib-section" class="smoothscroll">Distribución de calificaciones</a></li>
-                                        <li><a href="#dofiles-section" class="smoothscroll">Código</a></li>
-                                        <li><a href="#contact-section" class="smoothscroll">Contáctanos</a></li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row pt-5 mt-5 text-center">
-                        <div class="col-md-12">
-                            <div class="border-top pt-5">
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                <p>Copyright &copy;
-                                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made
-                                    with <i class="icon-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                                </p>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </footer>
-
-        </div> <!-- .site-wrap -->
-
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/jquery-ui.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/jquery.countdown.min.js"></script>
-        <script src="js/jquery.easing.1.3.js"></script>
-        <script src="js/aos.js"></script>
-        <script src="js/jquery.fancybox.min.js"></script>
-        <script src="js/jquery.sticky.js"></script>
-        <script src="js/isotope.pkgd.min.js"></script>
-        <script src="js/main.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/main.js"></script>
 
 
 
-    </body>
+</body>
 </html>

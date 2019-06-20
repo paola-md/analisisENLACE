@@ -3,12 +3,12 @@
 *********************************************
 clear all
 set more off
-gl dir = "E:\Proy_Paola_Salo\Educacion\entregaBM"
-gl source="E:\Proy_Paola_Salo\Educacion\hechosNotables\source"
-gl basesA= "$dir\basesAuxiliares"
-gl basesD = "$basesA\deleteMyFiles"
-gl resultados ="$dir\resultados"
-gl dofile = "$dir\do files"
+
+gl dir = "E:\Proy_Paola_Salo\Educacion\entregaBM\"
+gl source="E:\Proy_Paola_Salo\Educacion\hechosNotables\source\"
+gl basesA= "$dir\basesAuxiliares\"
+gl basesD = "$basesA\deleteMyFiles\"
+gl resultados ="$dir\resultados\"
 
 *====================================================
 // 1) descripcion panel_exacto.dta  y panel_fuzzy.dta
@@ -21,6 +21,10 @@ foreach x in panel_fuzzy panel_exacto {
 	bysort curp: egen aux2_prim=total(aux_prim)
 	bysort curp: gen anyos_obs=_N
 	gen d_prim_completa=aux2_prim==4
+	
+	*es decir, alumnos con primaria completa significa alumnos que hiciero la prueba los cuatro años seguidos
+	*asimismo, alumnos con secundaria completa significa que hicieron la prueba los tres años seguidos
+	
 	bysort curp: gen aux_sec=(grado==7 | grado==8 | grado==9)
 	bysort curp: egen aux2_sec=total(aux_sec)
 	gen d_sec_completa=aux2_sec==3
@@ -33,13 +37,17 @@ foreach x in panel_fuzzy panel_exacto {
 	gen num_cct=_N
 	keep num_* prom_*
 	gen nombre = "`x'"
+	duplicates drop num_cct, force
 	order nombre num_curp num_cct num_obs num_variables ///
 	num_prim num_sec prom
 	
 	export excel using "$resultados\describe_bases.xls", sheet("`x'", replace) firstrow(varlabels)
 }
 
-
+/* El siguiente 'foreach' funciona para indexar las generaciones que serán seguidas retrospectivamente. La tabla 'generaciones y años calendario' 
+   contenida en el reporte sirve para guiarse acerca de cómo se van asignando los números que identifican a cada generación. Dicha tabla es generada por esta
+   parte del código  */
+   
 foreach x in panel_fuzzy panel_exacto {
 	use  "$basesA\\`x'.dta", clear
 	sort curp grado
@@ -110,6 +118,9 @@ foreach x in panel_fuzzy panel_exacto {
 	duplicates drop generacion, force 
 	keep generacion num_ninyos media_anyos_obs
 	gen anyos_obs=.
+	
+	*los siguientes replace contabilizan los años observados por generación
+	
 	replace anyos_obs=1 if generacion<4 | generacion==13
 	replace anyos_obs=2 if generacion==4  | generacion==12
 	replace anyos_obs=3 if generacion==11
@@ -127,10 +138,9 @@ foreach x in panel_fuzzy panel_exacto {
 // 2) match bernardo
 *====================================================
 
-
 if 0==0{
 		foreach lev in M B{
-			foreach anyo1 in  06 07 08 09 10 11 12 13 14 {
+			foreach anyo1 in  06 07 08 09 10 11 12 13 14 15 16 {
 				capture confirm file "$basesA\`lev'`anyo1'.dta"
 				if _rc==0 {
 					use "$basesA\`lev'`anyo1'.dta", clear
@@ -148,7 +158,7 @@ if 0==0{
 	cap postclose chances
 	postfile chances anyo1 anyo2 count matches purity str3 level1 str3 level2  using "$basesA\matches.dta", replace
 
-	foreach anyo1 in  07 08 09 10 11 12 13 14 {
+	foreach anyo1 in  07 08 09 10 11 12 13 14 15 16{
 			foreach lev in B M{
 			capture confirm file "$basesD\`lev'`anyo1'_matchable.dta"
 			if _rc==0 {
@@ -159,7 +169,7 @@ if 0==0{
 				post chances (`anyo1') (`anyo1') (1) (1) (1) ("`lev'")  ("B")
 
 
-				foreach anyo2 in 06 07 08 09 10 11 12 13 14 {
+				foreach anyo2 in 06 07 08 09 10 11 12 13 14 15 16{
 					if `anyo2'<`anyo1'{
 						use "$basesD\`lev'`anyo1'_matchable.dta", clear
 						count
@@ -206,10 +216,6 @@ if 0==0{
 
 	postclose chances
 
-*para grafica	
-local plotregion plotregion(margin(sides) fcolor(white) lstyle(none) lcolor(white)) 
-local graphregion graphregion(fcolor(white) lstyle(none) lcolor(white)) 
-	
 	use "$basesA\matches.dta", clear
 	gen porc = matches/count
 	replace anyo1=2000+anyo1
@@ -238,20 +244,18 @@ local graphregion graphregion(fcolor(white) lstyle(none) lcolor(white))
 					local r2 =round(uniform()*255)
 					local r3 =round(uniform()*255)
 					if "`niv1'"=="B" & `bosc'==0{
-						local labelsin `labelsin' `num' "Elementary and middle school"
+						local labelsin `labelsin' `num' "Primaria y secundaria"
 						local bosc=1
 					}
 					if "`niv1'"=="M" & `med'==0{
-						local labelsin `labelsin' `num' "High school"
+						local labelsin `labelsin' `num' "Preparatoria"
 						local med=1
 					}
 					local color="62 150 81"
 					if "`niv1'"=="B"{
 						local color="218 124 41"
 					}
-					local twoway `twoway' (line porc anyo2 if purity==`puri' & level1=="`niv1'" & (level2=="B" | aux3==1) & anyo1==`anyo' & porc>0.2, ///
-					legend(order(`labelsin')) lcolor("`color'") ytitle("Match (%)") xtitle("Year")  ///
-					ylabel(0(0.2)1) ytick(0(0.1)1) lwidth(0.5) `graphregion' `plotregion' )
+					local twoway `twoway' (line porc anyo2 if purity==`puri' & level1=="`niv1'" & (level2=="B" | aux3==1) & anyo1==`anyo' & porc>0.2, legend(order(`labelsin')) lcolor("`color'") ytitle("Encontrados (%)") xtitle("Año") ylabel(0(0.2)1) ytick(0(0.1)1) lwidth(0.5) graphregion(color(white)) )
 					local num=`num'+1
 				}
 			}
@@ -261,15 +265,17 @@ local graphregion graphregion(fcolor(white) lstyle(none) lcolor(white))
 		graph export  "$resultados\graficas\matches_`puri'.pdf", replace
 		graph export  "$resultados\graficas\matches_`puri'.png", replace
 	}
-	
-	
-
 *====================================================	
 // 3)por estado num escuelas num alumnos
 *====================================================
 
+/* Este 'foreach' contabiliza el número de alumnos que presentó la prueba Enlace por entidad de 2006-2012 */
+
 foreach x in 06 07 08 09 10 11 12 {
 	use "$basesA\B`x'.dta", clear
+	keep if grado<7
+	*los dos primeros dígitos del CCT denotan, en orden alfabético, la entidad federativa a la cual pertenece la escuela 
+	
 	gen edo=substr(cct,1,2)
 	destring edo, replace force
 	drop if edo<1 | edo>32
@@ -281,6 +287,7 @@ foreach x in 06 07 08 09 10 11 12 {
 
 foreach x in 06 07 08 09 10 11 12 {
 	use "$basesA\B`x'_r.dta", clear
+	keep if grado<7
 	gen edo=substr(cct,1,2)
 	destring edo, replace force
 	drop if edo<1 | edo>32
@@ -290,8 +297,11 @@ foreach x in 06 07 08 09 10 11 12 {
 	export excel using "$resultados\ninyos_edo.xls", sheet(" folio anyo `x'", replace) firstrow(varlabels)
 }
 
+/* Este 'foreach' contabiliza el número de escuelas que presentó la prueba Enlace por entidad de 2006-2012 */
+
 foreach x in 06 07 08 09 10 11 12 {
 	use "$basesA\B`x'.dta", clear
+	keep if grado<7
 	duplicates drop cct, force
 	gen edo=substr(cct,1,2)
 	destring edo, replace force
@@ -302,12 +312,136 @@ foreach x in 06 07 08 09 10 11 12 {
 	export excel using "$resultados\escuelas_edo.xls", sheet(" anyo `x'", replace) firstrow(varlabels)
 }
 
+foreach x in 06 07 08 09 10 11 12 {
+	use "$basesA\B`x'_r.dta", clear
+	keep if grado<7
+	duplicates drop cct, force
+	gen edo=substr(cct,1,2)
+	destring edo, replace force
+	drop if edo<1 | edo>32
+	bysort edo: gen num_escuelas=_N
+	duplicates drop edo, force 
+	keep edo num_escuelas
+	export excel using "$resultados\escuelas_edo.xls", sheet("raw anyo `x'", replace) firstrow(varlabels)
+}
+
 //FALTA
 
 *====================================================
 //4) mapa
 *====================================================
+gl shp = "E:\Proy_Paola_Salo\Educacion\hechosNotables\source\889463526636_s\"
 
+
+cd "$basesD"
+
+
+ 
+ 
+if 0==0{ 
+	***transforma shp files a dta
+	
+	
+	shp2dta using "$shp\01_aguascalientes\conjunto de datos\01ent.shp", database(data_1_ent) coordinates(coord_1_ent) 
+	shp2dta using "$shp\02_bajacalifornia\conjunto de datos\02ent.shp", database(data_2_ent) coordinates(coord_2_ent) 
+	shp2dta using "$shp\03_bajacaliforniasur\conjunto de datos\03ent.shp", database(data_3_ent) coordinates(coord_3_ent) 
+	shp2dta using "$shp\04_campeche\conjunto de datos\04ent.shp", database(data_4_ent) coordinates(coord_4_ent) 
+	shp2dta using "$shp\05_coahuiladezaragoza\conjunto de datos\05ent.shp", database(data_5_ent) coordinates(coord_5_ent) 
+	shp2dta using "$shp\06_colima\conjunto de datos\06ent.shp", database(data_6_ent) coordinates(coord_6_ent) 
+	shp2dta using "$shp\07_chiapas\conjunto de datos\07ent.shp", database(data_7_ent) coordinates(coord_7_ent) 
+	shp2dta using "$shp\08_chihuahua\conjunto de datos\08ent.shp", database(data_8_ent) coordinates(coord_8_ent) 
+	shp2dta using "$shp\09_ciudaddemexico\conjunto de datos\09ent.shp", database(data_9_ent) coordinates(coord_9_ent) 
+	shp2dta using "$shp\10_durango\conjunto de datos\10ent.shp", database(data_10_ent) coordinates(coord_10_ent) 
+	shp2dta using "$shp\11_guanajuato\conjunto de datos\11ent.shp", database(data_11_ent) coordinates(coord_11_ent) 
+	shp2dta using "$shp\12_guerrero\conjunto de datos\12ent.shp", database(data_12_ent) coordinates(coord_12_ent) 
+	shp2dta using "$shp\13_hidalgo\conjunto de datos\13ent.shp", database(data_13_ent) coordinates(coord_13_ent) 
+	shp2dta using "$shp\14_jalisco\conjunto de datos\14ent.shp", database(data_14_ent) coordinates(coord_14_ent) 
+	shp2dta using "$shp\15_mexico\conjunto de datos\15ent.shp", database(data_15_ent) coordinates(coord_15_ent) 
+	shp2dta using "$shp\16_michoacandeocampo\conjunto de datos\16ent.shp", database(data_16_ent) coordinates(coord_16_ent) 
+	shp2dta using "$shp\17_morelos\conjunto de datos\17ent.shp", database(data_17_ent) coordinates(coord_17_ent) 
+	shp2dta using "$shp\18_nayarit\conjunto de datos\18ent.shp", database(data_18_ent) coordinates(coord_18_ent) 
+	shp2dta using "$shp\19_nuevoleon\conjunto de datos\19ent.shp", database(data_19_ent) coordinates(coord_19_ent) 
+	shp2dta using "$shp\20_oaxaca\conjunto de datos\20ent.shp", database(data_20_ent) coordinates(coord_20_ent) 
+	shp2dta using "$shp\21_puebla\conjunto de datos\21ent.shp", database(data_21_ent) coordinates(coord_21_ent) 
+	shp2dta using "$shp\22_queretaro\conjunto de datos\22ent.shp", database(data_22_ent) coordinates(coord_22_ent) 
+	shp2dta using "$shp\23_quintanaroo\conjunto de datos\23ent.shp", database(data_23_ent) coordinates(coord_23_ent) 
+	shp2dta using "$shp\24_sanluispotosi\conjunto de datos\24ent.shp", database(data_24_ent) coordinates(coord_24_ent) 
+	shp2dta using "$shp\25_sinaloa\conjunto de datos\25ent.shp", database(data_25_ent) coordinates(coord_25_ent) 
+	shp2dta using "$shp\26_sonora\conjunto de datos\26ent.shp", database(data_26_ent) coordinates(coord_26_ent) 
+	shp2dta using "$shp\27_tabasco\conjunto de datos\27ent.shp", database(data_27_ent) coordinates(coord_27_ent) 
+	shp2dta using "$shp\28_tamaulipas\conjunto de datos\28ent.shp", database(data_28_ent) coordinates(coord_28_ent)
+	shp2dta using "$shp\29_tlaxcala\conjunto de datos\29ent.shp", database(data_29_ent) coordinates(coord_29_ent) 
+	shp2dta using "$shp\30_veracruzignaciodelallave\conjunto de datos\30ent.shp", database(data_30_ent) coordinates(coord_30_ent) 
+	shp2dta using "$shp\31_yucatan\conjunto de datos\31ent.shp", database(data_31_ent) coordinates(coord_31_ent) 
+	shp2dta using "$shp\32_zacatecas\conjunto de datos\32ent.shp", database(data_32_ent) coordinates(coord_32_ent) 
+}
+	*crea una variable en cada estado que "registre" el orden y crea la variable entidad
+	*para las coordenadas
+		forvalues x= 1/32 {
+			use "$basesD\coord_`x'_ent.dta", clear
+			gen ent = `x'
+			gen orden = _n
+		save "$basesD\coord_`x'_ent.dta", replace
+}
+	*crea la variable entidad para los nombres de los enticipios
+		forvalues x= 1/32 {
+			use "$basesD\data_`x'_ent.dta", clear
+			gen ent = `x'
+		save "$basesD\data_`x'_ent.dta", replace
+}
+
+   
+
+
+****une los 32 estados
+cd "$basesD"
+use "$basesD\coord_1_ent.dta", clear
+forvalues x= 2/32 {
+	append using "$basesD\coord_`x'_ent.dta"
+	}
+save "$basesA\coord_mexico_ent.dta", replace
+
+use "$basesD\data_1_ent.dta", clear
+forvalues x= 2/32 {
+	append using "$basesD\data_`x'_ent.dta"
+	}
+sort ent _ID
+gen aux =_n
+save "$basesA\data_mexico_ent.dta", replace
+
+*genera un ID nuevo 
+use "$basesA\data_mexico_ent.dta", replace 
+merge 1:m _ID ent  using "$basesA\coord_mexico_ent.dta"
+sort ent _ID orden
+keep aux _X _Y 
+rename aux _ID
+sort _ID
+save "$basesA\coord_mexico_ent_orden.dta" , replace 
+
+*volver a correr para que quede bien el mapa
+
+clear
+import excel "$source\ratio_edo2.xlsx", sheet("Sheet1") firstrow
+rename Entidad ent
+save "$basesA\ratio.dta", replace
+*grafica mapas de enticipios
+use "$basesA\data_mexico_ent.dta", clear
+merge m:1 ent using "$basesA\ratio.dta"
+sort aux
+gen aux2=ent>20
+
+sum Ratio, d
+local p25 = round(`r(p25)', .01)
+local p50 = round(`r(p50)', .01)
+local p75 = round(`r(p75)', .01)
+
+
+spmap Ratio using  "$basesA\coord_mexico_ent_orden.dta" ,  id(aux) ///
+  clmethod(custom) fcolor(Blues)  legstyle(2) legend(size(vlarge)) ///
+ clb(0 `p25' `p50' `p75' 100)
+		
+
+graph export "$resultados\graficas\mapa_ratio.png", as (png) replace
 
 
 *====================================================
@@ -315,20 +449,23 @@ foreach x in 06 07 08 09 10 11 12 {
 *====================================================
 
 
-
+/* Esta parte del código genera las 2 gráficas que muestran el seguimiento retrospectivo desde 2012 hasta 2006 por escuela: una que incluye primarias y secundarias
+   y otra que solo incluye primarias */
+   
+/* Nótese que en cada 'foreach' de esta sección del código la cota superior del recorrido de 'x' es 11 ya que estamos suponiendo que en 2012 se tiene el 100% de asistencia */   
 
 foreach x  in 06 07 08 09 10 11 12  {
 		use "$basesA\B`x'.dta", clear
-		drop if grado>6
 		*duplicates drop cct,force
 		keep cct anyo grado
-		replace cct = substr(cct,1,9)
+		replace cct = substr(cct,1,9) /* Nos quedamos con los CCT bien capturados pues deben de tener 9 dígitos */
 		duplicates drop cct,force
 		rename anyo a_`x'
-	save "$basesD\Besc`x'.dta", replace
-	}
-	
-local labsize medlarge
+		save "$basesD\Besc`x'.dta", replace
+}
+			*variables locales para detalles de formato de las gráficas
+			
+			local labsize medlarge
 			local bigger_labsize large
 			local xtitle_options size(`labsize') margin(top)
 			local title_options size(`bigger_labsize') margin(bottom) color(black)
@@ -343,17 +480,19 @@ local labsize medlarge
 use "$basesD\Besc12.dta", clear
 foreach x  in 06 07 08 09 10 11  {			
 	merge 1:1 cct using "$basesD\Besc`x'.dta"
-	drop if _merge==2
+	drop if _merge==2 /* Nos deshachemos de las observaciones que no hicieron match*/
 	gen aux = _merge==3
 	egen porcentaje_asistencia_`x' = mean(aux)
 	duplicates drop cct, force
 	drop _merge aux
-			}
+}
+
 local s=6
 foreach x  in 06 07 08 09   {			
 	rename porcentaje_asistencia_`x' porcentaje_asistencia_`s'
 	local s=`s'+1
-			}
+}
+
 gen porcentaje_asistencia_12=1
 duplicates drop porcentaje_asistencia_12 , force
 keep porcentaje_asistencia_*
@@ -371,10 +510,23 @@ yline(0, `manual_axis') ///
 legend(off) `plotregion' `graphregion'
 graph export "$resultados\graficas\seguimiento_escuelas_todas.png", as (png) replace
 
-*sólo primarias
+*seguimiento retrospectivo de las escuelas pero solo primarias
+
+foreach x  in 06 07 08 09 10 11 12  {
+		use "$basesA\B`x'.dta", clear
+		*duplicates drop cct,force
+		keep cct anyo grado
+		replace cct = substr(cct,1,9)
+		duplicates drop cct,force
+		rename anyo a_`x'
+		drop if grado>6 
+		save "$basesD\Besc`x'.dta", replace
+}
+
 use "$basesD\Besc12.dta", clear
 drop if grado>6
 drop grado
+
 foreach x  in 06 07 08 09 10 11  {			
 	merge 1:1 cct using "$basesD\Besc`x'.dta"
 	drop if _merge==2
@@ -382,12 +534,14 @@ foreach x  in 06 07 08 09 10 11  {
 	egen porcentaje_asistencia_`x' = mean(aux)
 	duplicates drop cct, force
 	drop _merge aux
-			}
+}
+
 local s=6
 foreach x  in 06 07 08 09   {			
 	rename porcentaje_asistencia_`x' porcentaje_asistencia_`s'
 	local s=`s'+1
-			}
+}
+
 gen porcentaje_asistencia_12=1
 duplicates drop porcentaje_asistencia_12 , force
 keep porcentaje_asistencia_*
@@ -403,8 +557,8 @@ xtitle("año", `xtitle_options') ///
 ytitle("Porcentaje de alumnos encontrados", `xtitle_options') ///
 yline(0, `manual_axis') ///
 legend(off) `plotregion' `graphregion'
-graph export "$resultados\graficas\seguimiento_escuelas_prim.png", as (png) replace
 
+graph export "$resultados\graficas\seguimiento_escuelas_prim.png", as (png) replace
 
 *====================================================
 // 6)seguimiento
@@ -413,25 +567,24 @@ graph export "$resultados\graficas\seguimiento_escuelas_prim.png", as (png) repl
 
 
 local labsize medlarge
-			local bigger_labsize large
-			local xtitle_options size(`labsize') margin(top)
-			local title_options size(`bigger_labsize') margin(bottom) color(black)
-			local manual_axis lwidth(thin) lcolor(black) lpattern(solid)
-			local plotregion plotregion(margin(sides) fcolor(white) lstyle(none) lcolor(white)) 
-			local graphregion graphregion(fcolor(white) lstyle(none) lcolor(white)) 
-			local T_line_options lwidth(thin) lcolor(gray) 
-			*lpattern(dash)
-			local estimate_options_95 mcolor(gs7) msymbol(Oh)  msize(medlarge)
+local bigger_labsize large
+local xtitle_options size(`labsize') margin(top)
+local title_options size(`bigger_labsize') margin(bottom) color(black)
+local manual_axis lwidth(thin) lcolor(black) lpattern(solid)
+local plotregion plotregion(margin(sides) fcolor(white) lstyle(none) lcolor(white)) 
+local graphregion graphregion(fcolor(white) lstyle(none) lcolor(white)) 
+local T_line_options lwidth(thin) lcolor(gray) 
+*lpattern(dash)
+local estimate_options_95 mcolor(gs7) msymbol(Oh)  msize(medlarge)
 
 ******************
-*seguimiento el último año en el que aparece la generación hacia atrás
+*seguimiento hacia atrás (retrospectivo) a partir del último año en el que aparece la generación 
 ******************
 
 /* Se escojen los años de 2010, 2011 y 2012 para el forvalues de `t' pues
  en esos años el seguimiento retrospectivo
  de las generaciones es casi ininterrumpido*/
-			
-			
+						
 			
 forvalues t = 10/12{
 	if `t'!=11 {
@@ -609,10 +762,101 @@ forvalues t = 9/12{
 
 
 
+
+/* Esta parte del código es estructuralemente muy similar a la pasada */
+local labsize medlarge
+local bigger_labsize large
+local xtitle_options size(`labsize') margin(top)
+local title_options size(`bigger_labsize') margin(bottom) color(black)
+local manual_axis lwidth(thin) lcolor(black) lpattern(solid)
+local plotregion plotregion(margin(sides) fcolor(white) lstyle(none) lcolor(white)) 
+local graphregion graphregion(fcolor(white) lstyle(none) lcolor(white)) 
+local T_line_options lwidth(thin) lcolor(gray) 
+*lpattern(dash)
+local estimate_options_95 mcolor(gs7) msymbol(Oh)  msize(medlarge)
+
+
+forvalues t = 9/12{
+	
+	local num = `t'
+	if `t'==9 {
+		local num = "09"
+	}
+	
+	use "$basesA\B`num'.dta", clear
+	if `t'==12 {
+		gl first = 9 
+	}
+	if `t'==11 {
+		gl first = 8
+	}	
+	if `t'==10 {
+		gl first = 7
+	}	
+	if `t'==9 {
+		gl first = 6
+	}	
+	gl last = `t' - 1 
+	gl ultima = `t' - 3
+	if $ultima <10 {
+		local numero = "0$ultima"
+	}
+	
+	duplicates drop curp,force
+	merge 1:m curp using "$basesA\B`numero'.dta", keepusing(grado)
+	drop if _merge != 3 
+	drop _merge 
+	duplicates drop curp,force
+		
+	
+	*solo nos quedamos con las generaciones que seguiremos a partir de sexto
+	keep if grado==6
+	keep curp grado
+	rename grado grado_`t'
+	duplicates drop curp, force
+	forvalues a=$first / $last {
+		local nums = `a'
+		if `a'<10 {
+			local nums = "0`a'"
+		}
+		merge 1:m curp using "$basesA\B`nums'.dta", keepusing(grado)
+		drop if _merge==2
+		gen aux = _merge==3
+		egen porcentaje_asistencia_`a' = mean(aux)
+		duplicates drop curp, force
+		rename grado grado_`a'
+		drop _merge aux
+	}
+	gen porcentaje_asistencia_`t'=1
+	duplicates drop porcentaje_asistencia_$last , force
+	keep porcentaje_asistencia_*
+	export excel using "$resultados\seguimiento_pri_3y4.xls", sheet("6 en 20`num'", replace) firstrow(varlabels)
+	gen grado= 6
+	reshape long porcentaje_asistencia_, i(grado) j(anyo)
+	replace anyo=anyo+2000
+	twoway (line porcentaje_asistencia_ anyo, lwidth(thick)) ///
+			(scatter porcentaje_asistencia anyo, `estimate_options_95'), /// 
+			xtitle("año", `xtitle_options') ///
+			ytitle("Porcentaje de alumnos encontrados", `xtitle_options') ///
+			yline(0, `manual_axis') /// 
+			legend(off) `plotregion' `graphregion'
+			*twoway line porcentaje_asistencia anyo || scatter porcentaje_asistencia anyo, title("Seguimiento `x' en 20`t'") legend(off) xtitle("año") ytitle("Porcentaje de alumnos encontrados")
+			*graph export "$resultados\graficas\g_`x' en 20`t'.png", as (png) replace
+
+	*twoway line porcentaje_asistencia anyo || scatter porcentaje_asistencia anyo, title("Seguimiento 6 en 20`num'") legend(off) xtitle("año") ytitle("Porcentaje de alumnos encontrados")
+	graph export "$resultados\graficas\3y6prim_6 en 20`num'.png", as (png) replace
+
+}
+
+
+
+
+
 *====================================================
 // 7) tamaño de las escuelas
 *====================================================
 
+/* Esta sección del código genera el histograma que presenta las diferencias relativas en el tamaño de las escuelas (tamaño de la matrícula) comparando 2007 con 2012 */
 
 use "$basesA\panel_exacto.dta", clear
 keep if anyo==2007 | anyo==2012
@@ -655,8 +899,15 @@ graph export "$resultados\graficas\tamanyo.pdf", replace
 use "$basesA\panel_exacto.dta", clear
 bysort cct anyo: gen asistencia=_N
 duplicates drop cct anyo, force
+
+*para cada CCT en nuestra base de datos panel le asignamos un id con 'group'
 egen cct_id = group(cct)
+
+/* con 'xtset' lo que hacemos es un multiconjunto donde cada elemento del multiconjunto (id del CCT) tiene asociada una multiplicidad (cuántas veces aparece),
+ de esta forma estamos declarandole a STATA que estamos usando una base de datos panel  */
 xtset cct_id anyo 
+
+* el lag que establece el comando 'L.' nos permite sacar la tasa de variación entre cada año consecutivo 
 gen p_asistencia= (L.asistencia-asistencia)/L.asistencia
 
 
@@ -672,6 +923,8 @@ local plotregion plotregion(margin(sides) fcolor(white) lstyle(none) lcolor(whit
 local graphregion graphregion(fcolor(white) lstyle(none) lcolor(white)) 
 
 #delimit ;
+/* Establecemos un rango de variación en la tasa de crecimiento de las escuelas dado por el intervalo (-1,1) pues así nos deshacemos de observaciones atípicas 
+   donde una escuela decrece o crece más del 100% (?) */
 histogram p_asistencia if inrange(p_asistencia,-1,1), 
 width(0.1) 
 frac
@@ -691,7 +944,8 @@ graph export "$resultados\graficas\variacionResultados.pdf", replace
 // 9) calif 2011
 *====================================================
 
-
+/* En esta parte del código se generarán las distribuciones o gráficas de densidad de probabilidad de las calificaciones de Matemáticas y Español para 3ero de primaria
+   y sexto de primaria */
 
 // GRAPH FORMATTING
 // For graphs:
@@ -752,15 +1006,12 @@ graph export "$resultados\graficas\kdensitySexto2011.pdf", replace
 
 use "$basesA\panel_exacto.dta", clear
 *sample 1
-egen cct_aux=group(cct)
-tostring cct_aux, replace force
-tostring grado, replace force
-gen aux="1010101"
-egen cct_id= concat(cct_aux aux grado)
-destring cct_id, force replace
- bysort cct_id anyo: egen m_p_mat=mean(p_mat)
- bysort cct_id anyo: egen m_p_esp=mean(p_esp)
+egen cct_id=group(cct grado)
+bysort cct_id anyo: egen m_p_mat=mean(p_mat)
+bysort cct_id anyo: egen m_p_esp=mean(p_esp)
 duplicates drop cct_id anyo, force
+
+drop p_esp_perc p_mat_perc
 gen p_mat_perc=.
 gen p_esp_perc=.
 foreach grad in 3 4 5 6 {
@@ -832,6 +1083,7 @@ egen letra= group(aux)
 gen cero= 101010
 egen clave = concat(letra cero auxiliar)
 destring clave, replace
+duplicates drop clave anyo, force
 xtset clave anyo
 
 gen cambio_percentil_mat =L.p_mat_perc - p_mat_perc
@@ -1048,6 +1300,8 @@ foreach m in 0 1 {
 	restore
 }
 
+
+****aqui voy
 ********************************
 *aperturas
 ********************************
@@ -1324,11 +1578,11 @@ foreach estado in 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21
 					local r2 =round(uniform()*255)
 					local r3 =round(uniform()*255)
 					if "`niv1'"=="B" & `bosc'==0{
-						local labelsin `labelsin' `num' "Elementary and middle school"
+						local labelsin `labelsin' `num' "Primaria y secundaria"
 						local bosc=1
 					}
 					if "`niv1'"=="M" & `med'==0{
-						local labelsin `labelsin' `num' "High school"
+						local labelsin `labelsin' `num' "Preparatoria"
 						local med=1
 					}
 					local color="62 150 81"
@@ -1339,7 +1593,7 @@ foreach estado in 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21
 					local plotregion plotregion(margin(sides) fcolor(white) lstyle(none) lcolor(white)) 
 					local graphregion graphregion(fcolor(white) lstyle(none) lcolor(white)) 
 						
-					local twoway `twoway' (line porc anyo2 if purity==`puri' & level1=="`niv1'" & (level2=="B" | aux3==1) & anyo1==`anyo' & porc>0.2,///
+					local twoway `twoway' (line porc anyo2 if purity==`puri' & level1=="`niv1'" & (level2=="B" | aux3==1) & anyo1==`anyo' & porc>0.2, ///
 					legend(order(`labelsin')) lcolor("`color'") ytitle("Match (%)") xtitle("Year") ///
 					ylabel(0(0.2)1) ytick(0(0.1)1) lwidth(0.5) `graphregion' `plotregion' )
 					local num=`num'+1
