@@ -218,11 +218,15 @@ save "$basesD\merge_911_enlance.dta", replace
 
 use "$basesD\merge_911_enlance.dta", clear
 
+
+gen edo=substr(cct,1,2)
+drop if edo=="16" | edo=="20"
+drop edo
 *Por qué salen valores tan grandes
 
 drop if p_atrasados>1.3
 drop if p_total>1.3
-drop if p_reprobados>3
+drop if p_reprobados>1.3
 
 local labsize medlarge
 local bigger_labsize large
@@ -236,12 +240,12 @@ local graphregion graphregion(fcolor(white) lstyle(none) lcolor(white))
 local T_line_options lwidth(thin) lcolor(gray) lpattern(dash)
 local estimate_options_95 mcolor(gs7) msymbol(Oh)  msize(medlarge)
 local rcap_options_95 lcolor(black) lwidth(thin)
-kdensity p_atrasados ,  `estimate_options_95' ///
+hist p_atrasados ,  `estimate_options_95' color(red%30) frac width(.1)  ///
 title("") ///
 yline(0, `manual_axis') ///
 xtitle("# atrasados ENLACE / # atrasados 911", `xtitle_options') ///
-ytitle("Densidad kernel", `xtitle_options') ///
-xscale(range(`min_xaxis' `max_xaxis'))xline(2006, `T_line_options') ///
+ytitle("Fracción", `xtitle_options') ///
+xscale(range(`min_xaxis' `max_xaxis')) ///
 xscale(noline) `plotregion' `graphregion' legend(off) ///
 lwidth(medthick) 
 graph export  "$resultados\graficas\ATRASADOS_enlace911.png", as (png) replace
@@ -261,17 +265,15 @@ local graphregion graphregion(fcolor(white) lstyle(none) lcolor(white))
 local T_line_options lwidth(thin) lcolor(gray) lpattern(dash)
 local estimate_options_95 mcolor(gs7) msymbol(Oh)  msize(medlarge)
 local rcap_options_95 lcolor(black) lwidth(thin)
-kdensity p_total ,  `estimate_options_95' ///
+hist p_total ,  `estimate_options_95' color(red%30) frac width(.1)  ///
 title("") ///
 yline(0, `manual_axis') ///
 xtitle("# total alum ENLACE / # total alum 911", `xtitle_options') ///
-ytitle("Densidad kernel", `xtitle_options') ///
-xscale(range(`min_xaxis' `max_xaxis'))xline(2006, `T_line_options') ///
+ytitle("Fracción", `xtitle_options') ///
+xscale(range(`min_xaxis' `max_xaxis')) ///
 xscale(noline) `plotregion' `graphregion' legend(off) ///
 lwidth(medthick) 
 graph export  "$resultados\graficas\TOTAL_enlace911.png", as (png) replace
-
-
 
 *Borramos a partir del 99% 
 
@@ -287,12 +289,12 @@ local graphregion graphregion(fcolor(white) lstyle(none) lcolor(white))
 local T_line_options lwidth(thin) lcolor(gray) lpattern(dash)
 local estimate_options_95 mcolor(gs7) msymbol(Oh)  msize(medlarge)
 local rcap_options_95 lcolor(black) lwidth(thin)
-kdensity p_reprobados ,  `estimate_options_95' ///
+hist p_reprobados ,  `estimate_options_95' color(red%30) frac width(.1) ///
 yline(0, `manual_axis') ///
 title("") ///
 xtitle("# reprobados ENLACE/ # reprobados 911", `xtitle_options') ///
-ytitle("Densidad kernel", `xtitle_options') ///
-xscale(range(`min_xaxis' `max_xaxis'))xline(2006, `T_line_options') ///
+ytitle("Fracción", `xtitle_options') ///
+xscale(range(`min_xaxis' `max_xaxis')) ///
 xscale(noline) `plotregion' `graphregion' legend(off) ///
 lwidth(medthick) 
 graph export  "$resultados\graficas\REPROBADOS_enlace911.png", as (png) replace

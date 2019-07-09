@@ -6,17 +6,16 @@
 
 //=====================================================================
 
-clear all
-set more off
+
 *********************************************
 clear all
 set more off
-gl dir = "E:\Proy_Paola_Salo\Educacion\entregaBM"
-gl source="E:\Proy_Paola_Salo\Educacion\hechosNotables\source"
-gl basesA= "$dir\basesAuxiliares"
-gl basesD = "$basesA\deleteMyFiles"
-gl resultados ="$dir\resultados"
-gl dofile = "$dir\do files"
+gl dir = "E:\Proy_Paola_Salo\Educacion\entregaBM\"
+gl source="E:\Proy_Paola_Salo\Educacion\hechosNotables\source\"
+gl basesA= "$dir\basesAuxiliares\"
+gl basesD = "$basesA\deleteMyFiles\"
+gl resultados ="$dir\resultados\"
+
 
 
 //Limpia y fusiona las bases de 2006 
@@ -195,14 +194,18 @@ foreach x in   06 07 08 09 10 11 12 {
 	*borra curps repetidos
 	bysort curp:  gen aux=_N
 	drop if aux>1
+	drop aux
+	gen aux =strlen(curp)
+	drop if aux<18
+	drop aux
 	gen c_mayus = upper(curp)
 	/*checamos que los curp de la base de datos estén en el formato típico de 18 dígitos y con las descripciones normales que denotan los dígitos y su orden
 	  esto es posible con el comando 'regexm' */
-	gen checkc =  regexm(c_mayus, "^[A-Z][AEIOUX][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][HM][A-Z][A-Z][B-DF-HJ-NP-TV-Z][B-DF-HJ-NP-TV-Z][B-DF-HJ-NP-TV-Z]")
+	gen checkc =  regexm(c_mayus, "^[A-Z][AEIOUX][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][HM][A-Z][A-Z][B-DF-HJ-NP-TV-Z][B-DF-HJ-NP-TV-Z][B-DF-HJ-NP-TV-Z][0-9A-Z][0-9]")
 	order checkc
 	*nos quedamos con los curp que cumplen con los requisitos formales del curp
 	keep if checkc ==1
-	drop checkc curp aux
+	drop checkc curp 
 	rename c_mayus curp
 	save "$basesA\B`x'.dta", replace
 }
@@ -230,23 +233,22 @@ foreach anyo1 in  06 07 08 09 10 11 12  {
 	gen p_esp_std=(p_esp-medesp)/sdesp
 	
 	*guardamos en una macro los grados que se tienen registrados para la variable 'grado'
-	levels grado, local(grados)
+	
 	*genera percentiles con el comando 'xtile' usando las variables 'aux1' y 'aux2' como puentes, después se desechan.
-	gen p_mat_perc=.
-	gen p_esp_perc=.
-	foreach grad in `grados'{
-		foreach vari in p_mat p_esp{
-			gen aux1=`vari' if grado==`grad'
-			xtile aux2=aux1, nq(100)
-			replace `vari'_perc=aux2 if grado==`grad'
-			drop aux1 aux2
+	foreach x in esp mat {
+		sort  grado p_`x'
+		bysort  grado: gen ranking=_n if p_`x'!=.
+		bysort  grado: gen total_a=_N if p_`x'!=.
+		gen aux=(ranking/total_a)*100
+		gen p_`x'_perc= ceil(aux)
+		drop aux ranking total_a
+
 		}
-	}
 	drop medmat sdmat medesp sdesp
 	save "$basesA\B`anyo1'.dta", replace
 }
 
-*CREA PANEL
+*CREA pane_exacto
 
 use "$basesA\B06.dta", clear 
 
@@ -271,17 +273,20 @@ foreach anyo in 08 09 10 11 12 13 14 {
 	use "$basesA\M`anyo'_r.dta",clear
 	bysort curp:  gen aux=_N
 	drop if aux>1
+	drop aux
+	gen aux =strlen(curp)
+	drop if aux<18
+	drop aux
 	* Nos quedamos con los curp que cumplen con el formato típico
 	gen c_mayus = upper(curp)
-	gen checkc =  regexm(c_mayus, "^[A-Z][AEIOUX][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][HM][A-Z][A-Z][B-DF-HJ-NP-TV-Z][B-DF-HJ-NP-TV-Z][B-DF-HJ-NP-TV-Z]")
+	gen checkc =  regexm(c_mayus, "^[A-Z][AEIOU][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][HM][A-Z][A-Z][B-DF-HJ-NP-TV-Z][B-DF-HJ-NP-TV-Z][B-DF-HJ-NP-TV-Z][0-9A-Z][0-9]")
 	order checkc
 	keep if checkc ==1
-	drop checkc curp aux
+	drop checkc curp 
 	rename c_mayus curp
 	*replace p_mat=. if p_mat<50
 	*replace p_esp=. if p_esp<50
 	*estandariza calificaciones
-	
 	*Mismo proceso de estandarizamiento de calificaciones que se usó previamente 
 	egen medmat=mean(p_mat)
 	egen sdmat=sd(p_mat)
@@ -290,17 +295,15 @@ foreach anyo in 08 09 10 11 12 13 14 {
 	gen p_mat_std=(p_mat-medmat)/sdmat
 	gen p_esp_std=(p_esp-medesp)/sdesp
 	levels grado, local(grados)
-	*genera percentiles
-	gen p_mat_perc=.
-	gen p_esp_perc=.
-	foreach vari in p_mat p_esp{
-		gen aux1=`vari' 
-		xtile aux2=aux1, nq(100)
-		replace `vari'_perc=aux2
-		drop aux1 aux2
-	}
 	drop medmat sdmat medesp sdesp
-	
+	foreach x in esp mat{
+		sort  grado p_`x'
+		bysort  grado: gen ranking=_n if p_`x'!=.
+		bysort  grado: gen total_a=_N if p_`x'!=.
+		gen aux=(ranking/total_a)*100
+		gen p_`x'_perc= ceil(aux)
+		drop aux ranking total_a
+		}
 	save "$basesA\M`anyo'.dta",replace
 }
 
@@ -322,7 +325,6 @@ save "$basesA\panel_exacto_18_con_prepa.dta", replace
 
 
 
-
 **** Crea Panel Fuzzy ****
 clear all
 clear
@@ -339,7 +341,6 @@ gen curp = substr(curp,1,16)
 save "$basesA\panel_fuzzy.dta", replace
 
 
-
 *anonimiza
 use  "$basesA\panel_fuzzy.dta", clear
 
@@ -347,13 +348,18 @@ shasum curp, sha1(curp_id)
 drop curp  curp_largo apellido_nombre
 save  "$basesA\panel_fuzzy_a.dta", replace
 
+
 use  "$basesA\panel_exacto_18_con_prepa.dta", clear
 shasum curp, sha1(curp_id)
 drop curp apellido_nombre
-
 save "$basesA\panel_exacto_18_con_prepa_a.dta", replace
 
 
+
+use  "$basesA\panel_exacto.dta", clear
+shasum curp, sha1(curp_id)
+drop curp apellido_nombre
+save "$basesA\panel_exacto_a.dta", replace
 
 
 

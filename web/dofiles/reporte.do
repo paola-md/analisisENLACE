@@ -133,138 +133,6 @@ foreach x in panel_fuzzy panel_exacto {
 	export excel using "$resultados\describe_bases.xls", sheet("`x' g", replace) firstrow(varlabels)
 }
 
-
-*====================================================
-// 2) match bernardo
-*====================================================
-
-if 0==0{
-		foreach lev in M B{
-			foreach anyo1 in  06 07 08 09 10 11 12 13 14 15 16 {
-				capture confirm file "$basesA\`lev'`anyo1'.dta"
-				if _rc==0 {
-					use "$basesA\`lev'`anyo1'.dta", clear
-					*keep if substr(curp, 1, 1)=="G"
-					gen curp16=substr(curp, 1, 16)
-					bysort curp: drop if _n>1
-					*drop if strlen(curp)<16
-					save "$basesD\`lev'`anyo1'_matchable.dta", replace
-				}
-			}
-
-		}
-	}
-
-	cap postclose chances
-	postfile chances anyo1 anyo2 count matches purity str3 level1 str3 level2  using "$basesA\matches.dta", replace
-
-	foreach anyo1 in  07 08 09 10 11 12 13 14 15 16{
-			foreach lev in B M{
-			capture confirm file "$basesD\`lev'`anyo1'_matchable.dta"
-			if _rc==0 {
-			 
-				post chances (`anyo1') (`anyo1') (1) (1) (1) ("`lev'")  ("M")
-				post chances (`anyo1') (`anyo1') (1) (1) (2) ("`lev'")  ("M")
-				post chances (`anyo1') (`anyo1') (1) (1) (2) ("`lev'")  ("B")
-				post chances (`anyo1') (`anyo1') (1) (1) (1) ("`lev'")  ("B")
-
-
-				foreach anyo2 in 06 07 08 09 10 11 12 13 14 15 16{
-					if `anyo2'<`anyo1'{
-						use "$basesD\`lev'`anyo1'_matchable.dta", clear
-						count
-						local count=`r(N)'
-						if `count'>0{
-						capture confirm file "$basesD\B`anyo2'_matchable.dta"
-						 if _rc==0 {
-							gen grado2=grado-(`anyo1'-`anyo2')
-							rename apellido_nombre apellido_nombre_master
-							merge 1:1 curp using "$basesD\B`anyo2'_matchable.dta"
-							bysort anyo grado: gen bueno=(_N>15000)
-							replace bueno=0 if anyo!=2000+`anyo2'
-							replace grado2=grado if missing(grado2)
-							bysort grado2: egen bueno2=max(bueno)
-							keep if anyo==2000+`anyo2' | bueno2==1
-							count if anyo==2000+`anyo1'
-							*dsfdsfd
-							local count=r(N)
-							if r(N)>100{
-								count if _m==3
-								local matches=`r(N)'
-								post chances (`anyo1') (`anyo2') (`count') (`matches') (1) ("`lev'") ("B")
-								drop if _m==3
-								bysort curp16 anyo: drop if _N>1
-								bysort curp16: gen match=_N==2
-								count if match==1 & anyo==2000+`anyo1'
-								local matches=`r(N)'+`matches'
-								post chances (`anyo1') (`anyo2') (`count') (`matches') (2) ("`lev'") ("B")
-							}
-
-							}
-
-						}
-
-					}
-
-				}
-
-			}
-
-		}
-
-	}
-
-	postclose chances
-
-	use "$basesA\matches.dta", clear
-	gen porc = matches/count
-	replace anyo1=2000+anyo1
-	replace anyo2=2000+anyo2
-	levels anyo1, local(levels)
-	bysort anyo1 anyo2 level2: gen aux1=_N
-	bysort anyo1 anyo2 : gen aux2=_N
-	gen aux3=(aux1==aux2)
-
-	foreach puri in 1 2{
-		local bosc=0
-		local med=0
-		local tit="Match for exact curp (18 digits)"
-		if `puri'==2{
-			local tit="Match for exact curp (16 digits for unfound with 18 digits)"
-		}
-		 
-		local twoway
-		local labelsin
-		local num=1
-		foreach anyo in `levels'{
-			foreach niv1 in B M{
-				count if purity==`puri' & level1=="`niv1'" & (level2=="B" | aux3==1) & anyo1==`anyo'
-					if r(N)>1{
-					local r1 =round(uniform()*255)
-					local r2 =round(uniform()*255)
-					local r3 =round(uniform()*255)
-					if "`niv1'"=="B" & `bosc'==0{
-						local labelsin `labelsin' `num' "Primaria y secundaria"
-						local bosc=1
-					}
-					if "`niv1'"=="M" & `med'==0{
-						local labelsin `labelsin' `num' "Preparatoria"
-						local med=1
-					}
-					local color="62 150 81"
-					if "`niv1'"=="B"{
-						local color="218 124 41"
-					}
-					local twoway `twoway' (line porc anyo2 if purity==`puri' & level1=="`niv1'" & (level2=="B" | aux3==1) & anyo1==`anyo' & porc>0.2, legend(order(`labelsin')) lcolor("`color'") ytitle("Encontrados (%)") xtitle("Año") ylabel(0(0.2)1) ytick(0(0.1)1) lwidth(0.5) graphregion(color(white)) )
-					local num=`num'+1
-				}
-			}
-		}
-
-		twoway `twoway' 
-		graph export  "$resultados\graficas\matches_`puri'.pdf", replace
-		graph export  "$resultados\graficas\matches_`puri'.png", replace
-	}
 *====================================================	
 // 3)por estado num escuelas num alumnos
 *====================================================
@@ -420,10 +288,21 @@ save "$basesA\coord_mexico_ent_orden.dta" , replace
 
 *volver a correr para que quede bien el mapa
 
-clear
-import excel "$source\ratio_edo2.xlsx", sheet("Sheet1") firstrow
-rename Entidad ent
-save "$basesA\ratio.dta", replace
+clear 
+import excel "$resultados\ninyos_edo.xls", sheet(" curp anyo 09") firstrow
+rename  num_ninyos  num_ninyos_enlace
+save "$basesD\enlace.dta", replace
+
+
+clear 
+import excel "$resultados\tabla_alumnos_911.xls", sheet(" alumnos anyo 9") firstrow
+merge 1:1 edo using "$basesD\enlace.dta"
+gen Ratio = num_ninyos_enlace/num_ninyos_edo_anyo
+rename edo ent 
+drop _merge
+save "$basesD\ratio.dta", replace
+
+
 *grafica mapas de enticipios
 use "$basesA\data_mexico_ent.dta", clear
 merge m:1 ent using "$basesA\ratio.dta"
@@ -439,7 +318,6 @@ local p75 = round(`r(p75)', .01)
 spmap Ratio using  "$basesA\coord_mexico_ent_orden.dta" ,  id(aux) ///
   clmethod(custom) fcolor(Blues)  legstyle(2) legend(size(vlarge)) ///
  clb(0 `p25' `p50' `p75' 100)
-		
 
 graph export "$resultados\graficas\mapa_ratio.png", as (png) replace
 
@@ -456,6 +334,8 @@ graph export "$resultados\graficas\mapa_ratio.png", as (png) replace
 
 foreach x  in 06 07 08 09 10 11 12  {
 		use "$basesA\B`x'.dta", clear
+		gen edo=substr(cct,1,2)
+		drop if edo=="16" | edo=="20"
 		*duplicates drop cct,force
 		keep cct anyo grado
 		replace cct = substr(cct,1,9) /* Nos quedamos con los CCT bien capturados pues deben de tener 9 dígitos */
@@ -505,7 +385,7 @@ replace anyo=anyo+2000
 twoway (line porcentaje_asistencia anyo, lwidth(thick)) ///
 (scatter porcentaje_asistencia anyo, `estimate_options_95'), ///
 xtitle("año", `xtitle_options') ///
-ytitle("Porcentaje de alumnos encontrados", `xtitle_options') ///
+ytitle("Porcentaje de escuelas encontradas", `xtitle_options') ///
 yline(0, `manual_axis') ///
 legend(off) `plotregion' `graphregion'
 graph export "$resultados\graficas\seguimiento_escuelas_todas.png", as (png) replace
@@ -514,6 +394,9 @@ graph export "$resultados\graficas\seguimiento_escuelas_todas.png", as (png) rep
 
 foreach x  in 06 07 08 09 10 11 12  {
 		use "$basesA\B`x'.dta", clear
+		gen edo=substr(cct,1,2)
+		drop if edo=="16" | edo=="20"
+		drop edo
 		*duplicates drop cct,force
 		keep cct anyo grado
 		replace cct = substr(cct,1,9)
@@ -554,7 +437,7 @@ replace anyo=anyo+2000
 twoway (line porcentaje_asistencia anyo, lwidth(thick)) ///
 (scatter porcentaje_asistencia anyo, `estimate_options_95'), ///
 xtitle("año", `xtitle_options') ///
-ytitle("Porcentaje de alumnos encontrados", `xtitle_options') ///
+ytitle("Porcentaje de escuelas encontradas", `xtitle_options') ///
 yline(0, `manual_axis') ///
 legend(off) `plotregion' `graphregion'
 
@@ -605,6 +488,10 @@ forvalues t = 10/12{
 		   grados para una generación que se analizará retrospectivamente */
 		forvalues x=$begin / $end {
 			use "$basesA\B`t'.dta", clear
+			gen edo=substr(cct,1,2)
+			drop if edo=="16" | edo=="20"
+			drop edo
+			
 			if `t'==12 {
 				/* Para estos 'if', `x' denota el grado. x toma los valores 5 y 6 que representan
 				5to y 6to de primaria, mientras que 7, 8 y 9 representan 1ero, 
@@ -648,7 +535,10 @@ forvalues t = 10/12{
 					local nm="0`a'"
 				}
 				
-				merge 1:m curp using "$basesA\B`nm'.dta", keepusing(grado)
+				merge 1:m curp using "$basesA\B`nm'.dta", keepusing(grado cct)
+				gen edo=substr(cct,1,2)
+				drop if edo=="16" | edo=="20"
+				drop edo cct
 				drop if _merge==2
 				gen aux = _merge==3
 				egen porcentaje_asistencia_`a' = mean(aux)
@@ -674,6 +564,7 @@ forvalues t = 10/12{
 			if `t'==10 & `x'==9{
 				drop porcentaje_asistencia_8
 			}
+			
 			reshape long porcentaje_asistencia_, i(grado) j(anyo)
 			replace anyo=anyo+2000
 			
@@ -685,7 +576,7 @@ forvalues t = 10/12{
 			yline(0, `manual_axis') ///
 			legend(off) `plotregion' `graphregion'
 			*twoway line porcentaje_asistencia anyo || scatter porcentaje_asistencia anyo, title("Seguimiento `x' en 20`t'") legend(off) xtitle("año") ytitle("Porcentaje de alumnos encontrados")
-			graph export "$resultados\graficas\g_`x' en 20`t'.png", as (png) replace
+			graph export "$resultados\graficas\g_`x'en20`t'.png", as (png) replace
 
 			}
 	}
@@ -707,6 +598,10 @@ forvalues t = 9/12{
 	}
 	
 	use "$basesA\B`num'.dta", clear
+	gen edo=substr(cct,1,2)
+	drop if edo=="16" | edo=="20"
+	drop edo
+			
 	if `t'==12 {
 		gl first = 9 
 	}
@@ -731,7 +626,11 @@ forvalues t = 9/12{
 		if `a'<10 {
 			local nums = "0`a'"
 		}
-		merge 1:m curp using "$basesA\B`nums'.dta", keepusing(grado)
+		merge 1:m curp using "$basesA\B`nums'.dta", keepusing(grado cct)
+			gen edo=substr(cct,1,2)
+	drop if edo=="16" | edo=="20"
+	drop edo cct
+
 		drop if _merge==2
 		gen aux = _merge==3
 		egen porcentaje_asistencia_`a' = mean(aux)
@@ -756,7 +655,7 @@ forvalues t = 9/12{
 			*graph export "$resultados\graficas\g_`x' en 20`t'.png", as (png) replace
 
 	*twoway line porcentaje_asistencia anyo || scatter porcentaje_asistencia anyo, title("Seguimiento 6 en 20`num'") legend(off) xtitle("año") ytitle("Porcentaje de alumnos encontrados")
-	graph export "$resultados\graficas\primaria_6 en 20`num'.png", as (png) replace
+	graph export "$resultados\graficas\primaria_6en20`num'.png", as (png) replace
 
 }
 
@@ -784,6 +683,10 @@ forvalues t = 9/12{
 	}
 	
 	use "$basesA\B`num'.dta", clear
+		gen edo=substr(cct,1,2)
+	drop if edo=="16" | edo=="20"
+	drop edo
+
 	if `t'==12 {
 		gl first = 9 
 	}
@@ -803,7 +706,11 @@ forvalues t = 9/12{
 	}
 	
 	duplicates drop curp,force
-	merge 1:m curp using "$basesA\B`numero'.dta", keepusing(grado)
+	merge 1:m curp using "$basesA\B`numero'.dta", keepusing(grado cct)
+		gen edo=substr(cct,1,2)
+	drop if edo=="16" | edo=="20"
+	drop edo cct
+
 	drop if _merge != 3 
 	drop _merge 
 	duplicates drop curp,force
@@ -819,7 +726,11 @@ forvalues t = 9/12{
 		if `a'<10 {
 			local nums = "0`a'"
 		}
-		merge 1:m curp using "$basesA\B`nums'.dta", keepusing(grado)
+		merge 1:m curp using "$basesA\B`nums'.dta", keepusing(grado cct)
+			gen edo=substr(cct,1,2)
+	drop if edo=="16" | edo=="20"
+	drop edo cct
+
 		drop if _merge==2
 		gen aux = _merge==3
 		egen porcentaje_asistencia_`a' = mean(aux)
@@ -844,7 +755,7 @@ forvalues t = 9/12{
 			*graph export "$resultados\graficas\g_`x' en 20`t'.png", as (png) replace
 
 	*twoway line porcentaje_asistencia anyo || scatter porcentaje_asistencia anyo, title("Seguimiento 6 en 20`num'") legend(off) xtitle("año") ytitle("Porcentaje de alumnos encontrados")
-	graph export "$resultados\graficas\3y6prim_6 en 20`num'.png", as (png) replace
+	graph export "$resultados\graficas\3y6prim_6en20`num'.png", as (png) replace
 
 }
 
@@ -856,10 +767,18 @@ forvalues t = 9/12{
 // 7) tamaño de las escuelas
 *====================================================
 
-/* Esta sección del código genera el histograma que presenta las diferencias relativas en el tamaño de las escuelas (tamaño de la matrícula) comparando 2007 con 2012 */
+/* Esta sección del código genera el histograma que presenta
+ las diferencias relativas en el tamaño de las escuelas
+ 
+ (tamaño de la matrícula) comparando 2007 con 2012 */
 
 use "$basesA\panel_exacto.dta", clear
+gen edo=substr(cct,1,2)
+drop if edo=="16" | edo=="20"
+drop edo
+
 keep if anyo==2007 | anyo==2012
+*drop if grado>7
 bysort cct anyo: gen asistencia=_N
 duplicates drop cct anyo, force
 
@@ -888,7 +807,7 @@ legend (order( 1 "2007" 2 "2012"))
 ;
 #delimit cr
 
-graph export "$resultados\graficas\tamanyo.pdf", replace
+graph export "$resultados\graficas\tamanyo.png", replace
 
 
 *====================================================
@@ -897,6 +816,10 @@ graph export "$resultados\graficas\tamanyo.pdf", replace
 
 
 use "$basesA\panel_exacto.dta", clear
+	gen edo=substr(cct,1,2)
+	drop if edo=="16" | edo=="20"
+	drop edo
+
 bysort cct anyo: gen asistencia=_N
 duplicates drop cct anyo, force
 
@@ -936,7 +859,7 @@ ytitle("Fracción")
 ;
 #delimit cr
 
-graph export "$resultados\graficas\variacionResultados.pdf", replace
+graph export "$resultados\graficas\variacionResultados.png", replace
 
 
 
@@ -964,6 +887,7 @@ local graphregion graphregion(fcolor(white) lstyle(none) lcolor(white))
 *tomemos 2011
 
 use "$basesA\B11.dta", clear
+
 keep if grado==3
 
 #delimit 
@@ -978,7 +902,7 @@ legend(order(1 "Español" 2 "Matemáticas"))
 ;
 #delimit cr
 
-graph export "$resultados\graficas\kdensityTercero2011.pdf", replace
+graph export "$resultados\graficas\kdensityTercero2011.png", replace
 
 use "$basesA\B11.dta", clear
 keep if grado==6
@@ -994,7 +918,7 @@ legend(order(1 "Español" 2 "Matemáticas"))
 ;
 #delimit cr
 
-graph export "$resultados\graficas\kdensitySexto2011.pdf", replace
+graph export "$resultados\graficas\kdensitySexto2011.png", replace
 
 
 *====================================================
@@ -1012,16 +936,17 @@ bysort cct_id anyo: egen m_p_esp=mean(p_esp)
 duplicates drop cct_id anyo, force
 
 drop p_esp_perc p_mat_perc
-gen p_mat_perc=.
-gen p_esp_perc=.
-foreach grad in 3 4 5 6 {
-	foreach vari in p_mat p_esp{
-		gen aux1=m_`vari' if grado==`grad'
-		xtile aux2=aux1, nq(100)
-		replace `vari'_perc=aux2 if grado==`grad'
-		drop aux1 aux2
-	}
+
+foreach x in esp mat {
+	sort anyo grado p_`x'
+	bysort anyo grado: gen ranking=_n
+	bysort anyo grado: gen total_a=_N
+	gen aux=(ranking/total_a)*100
+	gen p_`x'_perc= ceil(aux)
+	drop aux ranking total_a
+
 }
+
 
 xtset cct_id anyo
 
@@ -1056,7 +981,7 @@ foreach x in mat esp {
 	;
 	#delimit cr
 
-	graph export "$resultados\graficas\perc_`x'_esc.pdf", replace
+	graph export "$resultados\graficas\perc_`x'_esc.png", replace
 
 }
 
@@ -1115,7 +1040,7 @@ foreach x in mat esp {
 	;
 	#delimit cr
 
-	graph export "$resultados\graficas\percentil_`x'.pdf", replace
+	graph export "$resultados\graficas\percentil_`x'.png", replace
 
 }
 
@@ -1269,6 +1194,9 @@ foreach m in 0 1 {
 
 
 	use"$basesD\destino_pri.dta", clear
+	gen edo=substr(cct,1,2)
+	drop if edo=="16" | edo=="20"
+
 	gen tipo=substr(cct, 3, 1)
 	gen pop = tipo=="P"
 	drop if pop!=`m'
@@ -1373,6 +1301,9 @@ foreach m in 0 1 {
 
 
 	use"$basesD\anterior_pri.dta", clear
+	 gen edo=substr(cct,1,2)
+drop if edo=="16" | edo=="20"
+
 	gen tipo=substr(cct, 3, 1)
 	gen pop = tipo=="P"
 	drop if pop!=`m'
@@ -1463,152 +1394,4 @@ ytitle("Fracción")
 #delimit cr
 
 graph export "$resultados\graficas\distancia.png", replace
-
-*====================================================
-*15)match bernardo por estado
-*====================================================
-	
-	
-	
-foreach estado in 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32{
-	if 0==0{
-		foreach lev in M B{
-			foreach anyo1 in  06 07 08 09 10 11 12 13 14 {
-				capture confirm file "$basesA\`lev'`anyo1'.dta"
-				if _rc==0 {
-					use "$basesA\`lev'`anyo1'.dta", clear
-					*keep if substr(curp, 1, 1)=="G"
-					keep if substr(cct, 1, 2)=="`estado'"
-					gen curp16=substr(curp, 1, 16)
-					bysort curp: drop if _n>1
-					*drop if strlen(curp)<16
-					save "$basesD\`lev'`anyo1'_matchable_`estado'.dta", replace
-				}
-			}
-
-		}
-	}
-
-	cap postclose chances
-	postfile chances anyo1 anyo2 count matches purity str3 level1 str3 level2  using "$basesA\matches_`estado'.dta", replace
-
-	foreach anyo1 in  07 08 09 10 11 12 13 14 {
-			foreach lev in B M{
-			capture confirm file "$basesD\`lev'`anyo1'_matchable_`estado'.dta"
-			if _rc==0 {
-			 
-				post chances (`anyo1') (`anyo1') (1) (1) (1) ("`lev'")  ("M")
-				post chances (`anyo1') (`anyo1') (1) (1) (2) ("`lev'")  ("M")
-				post chances (`anyo1') (`anyo1') (1) (1) (2) ("`lev'")  ("B")
-				post chances (`anyo1') (`anyo1') (1) (1) (1) ("`lev'")  ("B")
-
-
-				foreach anyo2 in 06 07 08 09 10 11 12 13 14{
-					if `anyo2'<`anyo1'{
-						use "$basesD\`lev'`anyo1'_matchable_`estado'.dta", clear
-						count
-						local count=`r(N)'
-						if `count'>0{
-						capture confirm file "$basesD\B`anyo2'_matchable_`estado'.dta"
-						 if _rc==0 {
-							gen grado2=grado-(`anyo1'-`anyo2')
-							rename apellido_nombre apellido_nombre_master
-							merge 1:1 curp using "$basesD\B`anyo2'_matchable_`estado'.dta"
-							bysort anyo grado: gen bueno=(_N>15000)
-							replace bueno=0 if anyo!=2000+`anyo2'
-							replace grado2=grado if missing(grado2)
-							bysort grado2: egen bueno2=max(bueno)
-							keep if anyo==2000+`anyo2' | bueno2==1
-							count if anyo==2000+`anyo1'
-							*dsfdsfd
-							local count=r(N)
-							if r(N)>100{
-								count if _m==3
-								local matches=`r(N)'
-								post chances (`anyo1') (`anyo2') (`count') (`matches') (1) ("`lev'") ("B")
-								drop if _m==3
-								bysort curp16 anyo: drop if _N>1
-								bysort curp16: gen match=_N==2
-								count if match==1 & anyo==2000+`anyo1'
-								local matches=`r(N)'+`matches'
-								post chances (`anyo1') (`anyo2') (`count') (`matches') (2) ("`lev'") ("B")
-							}
-
-							}
-
-						}
-
-					}
-
-				}
-
-			}
-
-		}
-
-	}
-
-	postclose chances
-
-	use "$basesA\matches_`estado'.dta", clear
-	gen porc = matches/count
-	replace anyo1=2000+anyo1
-	replace anyo2=2000+anyo2
-	levels anyo1, local(levels)
-	bysort anyo1 anyo2 level2: gen aux1=_N
-	bysort anyo1 anyo2 : gen aux2=_N
-	gen aux3=(aux1==aux2)
-
-	foreach puri in 1 2{
-		local bosc=0
-		local med=0
-		local tit="Match for exact curp (18 digits)"
-		if `puri'==2{
-			local tit="Match for exact curp (16 digits for unfound with 18 digits)"
-		}
-		 
-		local twoway
-		local labelsin
-		local num=1
-		foreach anyo in `levels'{
-			foreach niv1 in B M{
-				count if purity==`puri' & level1=="`niv1'" & (level2=="B" | aux3==1) & anyo1==`anyo'
-					if r(N)>1{
-					local r1 =round(uniform()*255)
-					local r2 =round(uniform()*255)
-					local r3 =round(uniform()*255)
-					if "`niv1'"=="B" & `bosc'==0{
-						local labelsin `labelsin' `num' "Primaria y secundaria"
-						local bosc=1
-					}
-					if "`niv1'"=="M" & `med'==0{
-						local labelsin `labelsin' `num' "Preparatoria"
-						local med=1
-					}
-					local color="62 150 81"
-					if "`niv1'"=="B"{
-						local color="218 124 41"
-					}
-					*para grafica	
-					local plotregion plotregion(margin(sides) fcolor(white) lstyle(none) lcolor(white)) 
-					local graphregion graphregion(fcolor(white) lstyle(none) lcolor(white)) 
-						
-					local twoway `twoway' (line porc anyo2 if purity==`puri' & level1=="`niv1'" & (level2=="B" | aux3==1) & anyo1==`anyo' & porc>0.2, ///
-					legend(order(`labelsin')) lcolor("`color'") ytitle("Match (%)") xtitle("Year") ///
-					ylabel(0(0.2)1) ytick(0(0.1)1) lwidth(0.5) `graphregion' `plotregion' )
-					local num=`num'+1
-				}
-			}
-		}
-
-		twoway `twoway' 
-		graph export  "$resultados\graficas\matches_`puri'_`estado'.pdf", replace
-		graph export  "$resultados\graficas\matches_`puri'_`estado'.png", replace
-	}
-
-}
-
-
-
-
 
